@@ -32,7 +32,10 @@ public class ProdutoController {
     @PostMapping(value = "/cadastro/{cnpj}")
     public ResponseEntity<Object> cadastroProduto(@RequestBody @Valid Produto produto, @PathVariable String cnpj){
         Produto p = produtoService.save(produto, cnpj);
-        return ResponseEntity.accepted().body(p);
+        if(p==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CNPJ Invalido! Fornecedor não encontrado");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(p);
     }
     @DeleteMapping(value = "/deletebyid/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable String id){

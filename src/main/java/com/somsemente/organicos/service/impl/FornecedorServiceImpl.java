@@ -1,14 +1,15 @@
-package com.somsemente.organicos.service;
+package com.somsemente.organicos.service.impl;
 
 import com.somsemente.organicos.model.Fornecedor;
 import com.somsemente.organicos.repository.FornecedorRepository;
+import com.somsemente.organicos.service.FornecedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class FornecedorServiceImpl implements FornecedorService{
+public class FornecedorServiceImpl implements FornecedorService {
     @Autowired
     FornecedorRepository fr;
 

@@ -1,9 +1,11 @@
-package com.somsemente.organicos.service;
+package com.somsemente.organicos.service.impl;
 
 import com.somsemente.organicos.model.Fornecedor;
 import com.somsemente.organicos.model.Produto;
 import com.somsemente.organicos.model.Tipo;
 import com.somsemente.organicos.repository.ProdutoRepository;
+import com.somsemente.organicos.service.FornecedorService;
+import com.somsemente.organicos.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,9 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public Produto save(Produto produto, String cnpj){
         Fornecedor fornecedor = fornecedorService.findByCnpj(cnpj);
+        if(fornecedor==null){
+            return null;
+        }
         produto.setFornecedor(fornecedor);
         return pr.save(produto);
     }
