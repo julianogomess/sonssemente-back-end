@@ -1,9 +1,6 @@
 package com.somsemente.organicos.serviceTest;
 
-import com.somsemente.organicos.model.Endereco;
-import com.somsemente.organicos.model.Fornecedor;
-import com.somsemente.organicos.model.Produto;
-import com.somsemente.organicos.model.Tipo;
+import com.somsemente.organicos.model.*;
 
 public class Utils {
     protected Fornecedor fornecedor(){
@@ -34,5 +31,17 @@ public class Utils {
         p.setPreco(2.0);
         p.setTipo(Tipo.Verdura);
         return p;
+    }
+
+    protected User user(){
+        User u = new User();
+        u.setNome("Livia");
+        u.setCpf("60777916010");
+        u.setEmail("qwe@ibm.com");
+        u.setDataNasc("23-12-1998");
+        u.setPassword("123455");
+        u.setTelefone("1199901221");
+        u.setEndereco(this.endereco());
+        return u;
     }
 }
