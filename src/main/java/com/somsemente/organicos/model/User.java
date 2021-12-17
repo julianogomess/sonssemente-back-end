@@ -7,14 +7,17 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Cliente {
+@Document(collection = "Clientes")
+public class User {
     @Id
     private String id;
     @NotBlank(message = "Campo Nome Completo é obrigatório")
@@ -38,4 +41,7 @@ public class Cliente {
     @NotNull
     private Endereco endereco;
     private String dataCriacao;
+
+    private boolean enabled;
+    private Set<Role> roles;
 }
