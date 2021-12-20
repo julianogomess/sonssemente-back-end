@@ -1,0 +1,18 @@
+language: java
+jdk:
+  -oraclejdk11
+before_install:
+  - sudo apt-get update
+  - mvn clean package
+script: docker-compose build
+before_deploy:
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+deploy:
+  provider: script
+  script:
+    docker push julianosousa/organicos
+  on:
+    branch: master
+notifications:
+  email: false
+

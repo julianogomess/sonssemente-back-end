@@ -1,0 +1,19 @@
+version: '3.4'
+services:
+  organicos:
+    image: organicos
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    working_dir: /app
+    environment:
+      TZ: America/Sao_Paulo
+    ports:
+      - "8080:8080"
+    command: mvn spring-boot:run
+    networks:
+      - udemy-network
+networks:
+  udemy-network:
+    driver: bridge
