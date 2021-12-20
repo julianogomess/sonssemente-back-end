@@ -10,7 +10,7 @@ before_deploy:
 deploy:
   provider: script
   script:
-    docker tag organicos:latest "$DOCKER_USERNAME"/organicos:$TRAVIS_JOB_ID
+    docker tag organicos:latest "$DOCKER_USERNAME"/organicos:$TRAVIS_JOB_ID;
     docker push "$DOCKER_USERNAME"/organicos
   on:
     branch: master
