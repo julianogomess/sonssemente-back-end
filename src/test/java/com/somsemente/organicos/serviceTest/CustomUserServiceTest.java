@@ -1,6 +1,6 @@
 package com.somsemente.organicos.serviceTest;
 
-import com.somsemente.organicos.model.Fornecedor;
+import com.somsemente.organicos.Utils;
 import com.somsemente.organicos.model.Role;
 import com.somsemente.organicos.model.User;
 import com.somsemente.organicos.repository.UserRepository;
@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class CustomUserServiceTest {

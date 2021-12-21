@@ -4,6 +4,7 @@ import com.somsemente.organicos.model.Role;
 import com.somsemente.organicos.model.User;
 import com.somsemente.organicos.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
+@Primary
 public class CustomUserService implements UserDetailsService {
 
     @Autowired

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/fornecedores")
@@ -18,7 +19,11 @@ public class FornecedorController {
 
     @GetMapping(value = "/listatodos")
     public ResponseEntity<Object> getTodosF(){
-        return ResponseEntity.status(HttpStatus.FOUND).body(fornecedorService.findAll());
+        List<Fornecedor> fornecedores = fornecedorService.findAll();
+        if(fornecedores.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(fornecedores);
     }
 
     @GetMapping(value = "/buscaporcnpj/{cnpj}")

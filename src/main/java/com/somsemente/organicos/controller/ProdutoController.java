@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/produtos")
@@ -22,12 +23,16 @@ public class ProdutoController {
 
     @GetMapping(value = "/listatodos")
     public ResponseEntity<Object> getProdutos(){
-        return ResponseEntity.ok(produtoService.findAll());
+        List<Produto> produtos =  produtoService.findAll();
+        if(produtos.isEmpty()){return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);}
+        return ResponseEntity.status(HttpStatus.FOUND).body(produtos);
     }
 
     @GetMapping(value = "/buscaportipo/{tipo}")
     public ResponseEntity<Object> getProdutoPorTipo(@PathVariable Tipo tipo){
-        return ResponseEntity.status(HttpStatus.FOUND).body(produtoService.findByTipo(tipo));
+        List<Produto> produtos =  produtoService.findByTipo(tipo);
+        if(produtos.isEmpty()){return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);}
+        return ResponseEntity.status(HttpStatus.FOUND).body(produtos);
     }
     @PostMapping(value = "/cadastro/{cnpj}")
     public ResponseEntity<Object> cadastroProduto(@RequestBody @Valid Produto produto, @PathVariable String cnpj){
@@ -37,7 +42,7 @@ public class ProdutoController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(p);
     }
-    @DeleteMapping(value = "/deletebyid/{id}")
+    @DeleteMapping(value = "/deleteporid/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable String id){
         produtoService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Produto deletado");

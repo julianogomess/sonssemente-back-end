@@ -1,5 +1,6 @@
 package com.somsemente.organicos.serviceTest;
 
+import com.somsemente.organicos.Utils;
 import com.somsemente.organicos.model.Fornecedor;
 import com.somsemente.organicos.repository.FornecedorRepository;
 import com.somsemente.organicos.service.FornecedorService;
