@@ -32,8 +32,8 @@ public class ConfigSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http.httpBasic().disable().csrf().disable().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/users/**").permitAll()
-                .antMatchers("/produtos/**").permitAll()
+                .authorizeRequests().antMatchers("/users/cadastro").permitAll()
+                .antMatchers("/users/login").permitAll()
                 .antMatchers("/fornecedores/**").hasAuthority("ADMIN").anyRequest().authenticated().and().csrf()
                 .disable().exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint()).and()
                 .apply(new JwtConfigurer(jwtTokenProvider));

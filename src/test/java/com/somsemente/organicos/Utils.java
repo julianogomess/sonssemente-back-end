@@ -1,9 +1,9 @@
-package com.somsemente.organicos.serviceTest;
+package com.somsemente.organicos;
 
 import com.somsemente.organicos.model.*;
 
 public class Utils {
-    protected Fornecedor fornecedor(){
+    public Fornecedor fornecedor(){
         Fornecedor f = new Fornecedor();
         f.setEmail("123@ibm.com");
         f.setCnpj("86889939000174");
@@ -13,7 +13,7 @@ public class Utils {
         return f;
     }
 
-    protected Endereco endereco(){
+    public Endereco endereco(){
         Endereco e = new Endereco();
         e.setCep("0760123");
         e.setBairro("Santa Ines");
@@ -24,7 +24,7 @@ public class Utils {
         return e;
     }
 
-    protected Produto produto(){
+    public Produto produto(){
         Produto p = new Produto();
         p.setFornecedor(this.fornecedor());
         p.setNome("Cebola Roxa");
@@ -33,7 +33,7 @@ public class Utils {
         return p;
     }
 
-    protected User user(){
+    public User user(){
         User u = new User();
         u.setNome("Livia");
         u.setCpf("60777916010");

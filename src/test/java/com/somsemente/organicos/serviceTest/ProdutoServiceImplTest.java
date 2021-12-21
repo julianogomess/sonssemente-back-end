@@ -1,5 +1,6 @@
 package com.somsemente.organicos.serviceTest;
 
+import com.somsemente.organicos.Utils;
 import com.somsemente.organicos.model.Produto;
 import com.somsemente.organicos.model.Tipo;
 import com.somsemente.organicos.repository.FornecedorRepository;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 class ProdutoServiceImplTest {
