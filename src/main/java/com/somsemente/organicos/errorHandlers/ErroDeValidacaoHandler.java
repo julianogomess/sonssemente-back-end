@@ -2,6 +2,7 @@ package com.somsemente.organicos.errorHandlers;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.mongodb.MongoWriteException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestControllerAdvice
+@Slf4j
 public class ErroDeValidacaoHandler {
 
     @Autowired
@@ -38,6 +40,7 @@ public class ErroDeValidacaoHandler {
             erros.add(mensagem);
 
         });
+        log.info("Erros de validação : " + erros);
         return erros;
     }
 
@@ -48,6 +51,7 @@ public class ErroDeValidacaoHandler {
 
         String[] erro = exception.getCause().getLocalizedMessage().split("dup key: ");
         String[] e = erro[1].split("'");
+        log.info("Cadastro de item ja conta na base, erro: " + e);
         return e[0].replace('{', ' ').replace('}', ' ') + "já existe.";
 
     }
