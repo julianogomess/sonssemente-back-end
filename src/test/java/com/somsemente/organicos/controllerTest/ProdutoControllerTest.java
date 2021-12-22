@@ -1,7 +1,6 @@
 package com.somsemente.organicos.controllerTest;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.somsemente.organicos.Utils;
 import com.somsemente.organicos.config.jwtConfig.JwtTokenProvider;
@@ -100,5 +99,6 @@ public class ProdutoControllerTest {
                 .header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andReturn();
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertTrue(resultString.contains("Produto"));
+        fornecedorService.deleteByCnpj(p.getFornecedor().getCnpj());
     }
 }
