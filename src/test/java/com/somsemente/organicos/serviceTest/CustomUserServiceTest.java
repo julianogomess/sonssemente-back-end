@@ -1,7 +1,7 @@
 package com.somsemente.organicos.serviceTest;
 
 import com.somsemente.organicos.Utils;
-import com.somsemente.organicos.model.Role;
+import com.somsemente.organicos.model.utils.Role;
 import com.somsemente.organicos.model.User;
 import com.somsemente.organicos.repository.UserRepository;
 import com.somsemente.organicos.service.impl.CustomUserService;

@@ -1,7 +1,8 @@
 package com.somsemente.organicos.controller;
 
 import com.somsemente.organicos.config.jwtConfig.JwtTokenProvider;
-import com.somsemente.organicos.model.AuthBody;
+import com.somsemente.organicos.dto.AuthBody;
+import com.somsemente.organicos.dto.UserDTO;
 import com.somsemente.organicos.model.User;
 import com.somsemente.organicos.service.impl.CustomUserService;
 import io.swagger.annotations.Api;
@@ -61,8 +62,8 @@ public class UserController {
 
     @ApiOperation(value = "Cadastro do cliente")
     @PostMapping("/cadastro")
-    public ResponseEntity cadastro(@Valid @RequestBody User user){
-        User u = userService.save(user);
+    public ResponseEntity cadastro(@Valid @RequestBody UserDTO user){
+        User u = userService.save(user.trasnformar());
         log.info("Cliente cadastrado com sucesso");
         return ResponseEntity.status(HttpStatus.CREATED).body(u);
     }

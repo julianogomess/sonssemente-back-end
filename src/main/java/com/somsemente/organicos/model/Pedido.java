@@ -1,7 +1,5 @@
 package com.somsemente.organicos.model;
 
-
-import com.somsemente.organicos.model.utils.Tipo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,24 +7,22 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
+import java.util.Date;
+import java.util.Map;
 
-@Document(collection = "Produtos")
+@Document(collection = "Pedidos")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Produto {
+public class Pedido {
     @Id
     private String id;
-    @NotBlank
-    private String nome;
-    @NotNull
-    private Tipo tipo;
-    @PositiveOrZero
-    private Double preco;
     @DBRef
-    private Fornecedor fornecedor;
-
+    private User cliente;
+    @NotNull
+    private Map<Produto, Double> lista;
+    @NotNull
+    private Date data;
+    private boolean finalizado;
 }

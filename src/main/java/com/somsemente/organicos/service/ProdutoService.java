@@ -1,7 +1,7 @@
 package com.somsemente.organicos.service;
 
 import com.somsemente.organicos.model.Produto;
-import com.somsemente.organicos.model.Tipo;
+import com.somsemente.organicos.model.utils.Tipo;
 
 import java.util.List;
 

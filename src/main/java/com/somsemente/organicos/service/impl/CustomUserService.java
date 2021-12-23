@@ -1,6 +1,6 @@
 package com.somsemente.organicos.service.impl;
 
-import com.somsemente.organicos.model.Role;
+import com.somsemente.organicos.model.utils.Role;
 import com.somsemente.organicos.model.User;
 import com.somsemente.organicos.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class CustomUserService implements UserDetailsService {
         return userRepository.findAll();
     }
     public User save(User user){
-        user.setDataCriacao(new Date().toString());
+        user.setDataCriacao(new Date());
         user.setEnabled(true);
         Set<Role> roles = new HashSet<>();
         roles.add(Role.ADMIN);

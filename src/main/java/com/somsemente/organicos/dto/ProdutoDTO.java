@@ -1,32 +1,31 @@
-package com.somsemente.organicos.model;
+package com.somsemente.organicos.dto;
 
-
+import com.somsemente.organicos.model.Produto;
 import com.somsemente.organicos.model.utils.Tipo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
-@Document(collection = "Produtos")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Produto {
-    @Id
-    private String id;
+public class ProdutoDTO {
     @NotBlank
     private String nome;
     @NotNull
     private Tipo tipo;
     @PositiveOrZero
     private Double preco;
-    @DBRef
-    private Fornecedor fornecedor;
 
+    public Produto trasnformar(){
+        Produto p = new Produto();
+        p.setNome(this.getNome());
+        p.setTipo(this.getTipo());
+        p.setPreco(this.getPreco());
+        return p;
+    }
 }

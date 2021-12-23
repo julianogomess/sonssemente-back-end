@@ -2,7 +2,7 @@ package com.somsemente.organicos.service.impl;
 
 import com.somsemente.organicos.model.Fornecedor;
 import com.somsemente.organicos.model.Produto;
-import com.somsemente.organicos.model.Tipo;
+import com.somsemente.organicos.model.utils.Tipo;
 import com.somsemente.organicos.repository.ProdutoRepository;
 import com.somsemente.organicos.service.FornecedorService;
 import com.somsemente.organicos.service.ProdutoService;

@@ -1,8 +1,9 @@
 package com.somsemente.organicos.controller;
 
 
+import com.somsemente.organicos.dto.ProdutoDTO;
 import com.somsemente.organicos.model.Produto;
-import com.somsemente.organicos.model.Tipo;
+import com.somsemente.organicos.model.utils.Tipo;
 import com.somsemente.organicos.service.ProdutoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,9 +52,9 @@ public class ProdutoController {
 
     @ApiOperation(value = "Cadastro do produto relacionado ao fornecedor do mesmo")
     @PostMapping(value = "/cadastro/{cnpj}")
-    public ResponseEntity<Object> cadastroProduto(@RequestBody @Valid Produto produto, @PathVariable String cnpj){
+    public ResponseEntity<Object> cadastroProduto(@RequestBody @Valid ProdutoDTO produto, @PathVariable String cnpj){
         log.info("Cadastro de novo produto relacionado ao fornecedor");
-        Produto p = produtoService.save(produto, cnpj);
+        Produto p = produtoService.save(produto.trasnformar(), cnpj);
         if(p==null){
             log.info("CNPJ informado invalido ou fornecedor não cadastrado!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CNPJ Invalido! Fornecedor não encontrado");

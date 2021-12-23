@@ -4,7 +4,7 @@ package com.somsemente.organicos.controllerTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.somsemente.organicos.Utils;
 import com.somsemente.organicos.config.jwtConfig.JwtTokenProvider;
-import com.somsemente.organicos.model.AuthBody;
+import com.somsemente.organicos.dto.AuthBody;
 import com.somsemente.organicos.model.User;
 import com.somsemente.organicos.repository.UserRepository;
 import com.somsemente.organicos.service.impl.CustomUserService;

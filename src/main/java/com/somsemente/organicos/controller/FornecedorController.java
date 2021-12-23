@@ -1,6 +1,7 @@
 package com.somsemente.organicos.controller;
 
 
+import com.somsemente.organicos.dto.FornecedorDTO;
 import com.somsemente.organicos.model.Fornecedor;
 import com.somsemente.organicos.service.FornecedorService;
 import io.swagger.annotations.Api;
@@ -50,9 +51,9 @@ public class FornecedorController {
     }
     @ApiOperation(value = "Realiza o cadastro do fornecedor")
     @PostMapping(value = "/cadastro")
-    public ResponseEntity<Object> cadastroFornecedor(@Valid @RequestBody Fornecedor fornecedor){
+    public ResponseEntity<Object> cadastroFornecedor(@Valid @RequestBody FornecedorDTO fornecedor){
         log.info("Cadastro de novo fornecedor");
-        return ResponseEntity.status(HttpStatus.CREATED).body(fornecedorService.save(fornecedor));
+        return ResponseEntity.status(HttpStatus.CREATED).body(fornecedorService.save(fornecedor.transformar()));
     }
 
     @ApiOperation(value = "Exclui o fornecedor por cnpj")

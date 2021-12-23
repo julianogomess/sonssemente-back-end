@@ -1,6 +1,7 @@
 package com.somsemente.organicos;
 
 import com.somsemente.organicos.model.*;
+import com.somsemente.organicos.model.utils.Tipo;
 
 public class Utils {
     public Fornecedor fornecedor(){

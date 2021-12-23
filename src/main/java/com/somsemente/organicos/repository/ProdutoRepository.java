@@ -1,8 +1,7 @@
 package com.somsemente.organicos.repository;
 
 import com.somsemente.organicos.model.Produto;
-import com.somsemente.organicos.model.Tipo;
-import org.springframework.data.domain.Sort;
+import com.somsemente.organicos.model.utils.Tipo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
