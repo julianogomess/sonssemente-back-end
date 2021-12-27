@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/produtos")
+@RequestMapping("/api/produtos")
 @Api(value = "Gerenciamento de produtos")
 @Slf4j
 public class ProdutoController {
@@ -35,7 +35,7 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         log.info("Foram encontrados " + produtos.size() + " produtos!");
-        return ResponseEntity.status(HttpStatus.FOUND).body(produtos);
+        return ResponseEntity.status(HttpStatus.OK).body(produtos);
     }
 
     @ApiOperation(value = "Retorna todos os produtos por tipo")
@@ -47,7 +47,7 @@ public class ProdutoController {
             log.info("Nenhum produto encontrado!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);}
         log.info("Foram encontrados " + produtos.size() + " produtos do tipo: "+ tipo);
-        return ResponseEntity.status(HttpStatus.FOUND).body(produtos);
+        return ResponseEntity.status(HttpStatus.OK).body(produtos);
     }
 
     @ApiOperation(value = "Cadastro do produto relacionado ao fornecedor do mesmo")

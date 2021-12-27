@@ -7,7 +7,6 @@ import com.somsemente.organicos.service.FornecedorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.internal.util.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/fornecedores")
+@RequestMapping("/api/fornecedores")
 @Api(value = "Gerenciamento de clientes")
 @Slf4j
 public class FornecedorController {
@@ -34,7 +33,7 @@ public class FornecedorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         log.info(fornecedores.size()+ " fornecedores encontrados!");
-        return ResponseEntity.status(HttpStatus.FOUND).body(fornecedores);
+        return ResponseEntity.status(HttpStatus.OK).body(fornecedores);
     }
 
     @ApiOperation(value = "Retorna os dados do fornecedor passando o cnpj")
@@ -47,7 +46,7 @@ public class FornecedorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         log.info("Fornecedor encontrado: " + fornecedor.getNome());
-        return ResponseEntity.status(HttpStatus.FOUND).body(fornecedor);
+        return ResponseEntity.status(HttpStatus.OK).body(fornecedor);
     }
     @ApiOperation(value = "Realiza o cadastro do fornecedor")
     @PostMapping(value = "/cadastro")

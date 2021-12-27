@@ -1,6 +1,5 @@
 package com.somsemente.organicos.controllerTest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.somsemente.organicos.config.jwtConfig.JwtTokenProvider;
 import com.somsemente.organicos.model.Fornecedor;
@@ -43,9 +42,9 @@ public class FornecedorControllerTest {
     @Test
     void getTodosF() throws Exception {
         String token = jwtTokenProvider.createToken("abc@ibm.com",ur.findByEmail("abc@ibm.com").getRoles());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/fornecedores/listatodos")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/fornecedores/listatodos")
                 .header("Authorization", "Bearer " + token))
-                .andExpect(status().isFound()).andReturn();
+                .andExpect(status().isOk()).andReturn();
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertTrue(resultString.contains("Fazenda Chico Bento"));
     }
@@ -53,8 +52,8 @@ public class FornecedorControllerTest {
     @Test
     void getByCnpj() throws Exception {
         String token = jwtTokenProvider.createToken("abc@ibm.com",ur.findByEmail("abc@ibm.com").getRoles());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/fornecedores/buscaporcnpj/07199027000102")
-                .header("Authorization", "Bearer " + token)).andExpect(status().isFound()).andReturn();
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/fornecedores/buscaporcnpj/07199027000102")
+                .header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andReturn();
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertTrue(resultString.contains("Fazenda Chico Bento"));
     }
@@ -63,7 +62,7 @@ public class FornecedorControllerTest {
     void cadastroFornecedor() throws Exception {
         Fornecedor fornecedor = u.fornecedor();
         String token = jwtTokenProvider.createToken("abc@ibm.com",ur.findByEmail("abc@ibm.com").getRoles());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/fornecedores/cadastro")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/fornecedores/cadastro")
                 .header("Authorization", "Bearer " + token)
                 .content(objectMapper.writeValueAsString(fornecedor))
                .contentType(MediaType.APPLICATION_JSON)
@@ -79,7 +78,7 @@ public class FornecedorControllerTest {
         Fornecedor fornecedor = u.fornecedor();
         service.save(fornecedor);
         String token = jwtTokenProvider.createToken("abc@ibm.com",ur.findByEmail("abc@ibm.com").getRoles());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/fornecedores/deleteporcnpj/"+fornecedor.getCnpj())
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/fornecedores/deleteporcnpj/"+fornecedor.getCnpj())
                 .header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andReturn();
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertTrue(resultString.contains("Fornecedor"));
@@ -89,14 +88,8 @@ public class FornecedorControllerTest {
     @Test
     void badAuthenticationLogin() throws Exception{
         String tokenInvalid = "invalid token";
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/fornecedores/listatodos"))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/fornecedores/listatodos"))
                 .andExpect(status().isUnauthorized()).andReturn();
-
-    }
-
-    @Test
-    void badAuthenticationInvalidToken() throws Exception{
-
 
     }
 }

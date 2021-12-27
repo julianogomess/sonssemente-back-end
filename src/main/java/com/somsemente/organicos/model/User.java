@@ -2,6 +2,7 @@ package com.somsemente.organicos.model;
 
 
 import com.somsemente.organicos.model.utils.Role;
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Document(collection = "Clientes")
+@ApiModel(value = "Cliente")
 public class User {
     @Id
     private String id;

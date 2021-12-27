@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @Api(value = "Gerenciamento de usuários e login")
 @Slf4j
 public class UserController {
@@ -78,7 +78,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não há clientes na base");
         }
         log.info(users.size()+" clientes encontrado!");
-        return ResponseEntity.status(HttpStatus.FOUND).body(users);
+        return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
     @ApiOperation(value = "Retorna o cliente por cpf")
@@ -91,7 +91,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum cliente encontrado com este cpf");
         }
         log.info("Cliente " + user.getNome() + " encontrado.");
-        return ResponseEntity.status(HttpStatus.FOUND).body(user);
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @ApiOperation(value = "Exclui o cliente por cpf")

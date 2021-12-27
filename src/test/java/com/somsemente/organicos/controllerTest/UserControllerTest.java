@@ -45,7 +45,7 @@ class UserControllerTest {
         AuthBody auth = new AuthBody();
         auth.setEmail("abc@ibm.com");
         auth.setPassword("abc123");
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/users/login")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/users/login")
                         .content(objectMapper.writeValueAsString(auth))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -60,7 +60,7 @@ class UserControllerTest {
         AuthBody auth = new AuthBody();
         auth.setEmail("abc@ibm.com");
         auth.setPassword("abc12");
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/users/login")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/users/login")
                         .content(objectMapper.writeValueAsString(auth))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -68,14 +68,12 @@ class UserControllerTest {
                 .andReturn();
         String resultCase = result.getResponse().getContentAsString();
         Assertions.assertNotNull(resultCase);
-        System.out.println(resultCase);
-        //Assertions.assertTrue(resultCase.contains("Senha Invalida"));
     }
 
     @Test
     void cadastro() throws Exception {
         User user = u.user();
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/users/cadastro")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/users/cadastro")
                         .content(objectMapper.writeValueAsString(user))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -90,9 +88,9 @@ class UserControllerTest {
     @Test
     void getAll() throws Exception{
         String token = jwtTokenProvider.createToken("abc@ibm.com",ur.findByEmail("abc@ibm.com").getRoles());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/users/listatodos")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/users/listatodos")
                 .header("Authorization", "Bearer " + token))
-                .andExpect(status().isFound()).andReturn();
+                .andExpect(status().isOk()).andReturn();
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertTrue(resultString.contains("abc@ibm.com"));
     }
@@ -101,9 +99,9 @@ class UserControllerTest {
     void getByCpf() throws Exception {
         User user = ur.findByEmail("abc@ibm.com");
         String token = jwtTokenProvider.createToken(user.getEmail(),user.getRoles());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/users/buscaporcpf/"+user.getCpf())
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/users/buscaporcpf/"+user.getCpf())
                         .header("Authorization", "Bearer " + token))
-                .andExpect(status().isFound()).andReturn();
+                .andExpect(status().isOk()).andReturn();
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertTrue(resultString.contains(user.getEmail()));
     }
@@ -113,7 +111,7 @@ class UserControllerTest {
         User user = u.user();
         service.save(user);
         String token = jwtTokenProvider.createToken(user.getEmail(),user.getRoles());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/users/delete/"+user.getCpf())
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/users/delete/"+user.getCpf())
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
         String resultString = result.getResponse().getContentAsString();

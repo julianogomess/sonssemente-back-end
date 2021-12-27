@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/pedidos")
+@RequestMapping("/api/pedidos")
 @Api(value = "Gerenciamento de Pedidos")
 @Slf4j
 public class PedidoController {
@@ -42,7 +42,7 @@ public class PedidoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum pedido encontrado");
         }
         log.info("Foram encontrados " + pedidos.size() + " pedidos!");
-        return ResponseEntity.status(HttpStatus.FOUND).body(pedidos);
+        return ResponseEntity.status(HttpStatus.OK).body(pedidos);
     }
 
     @ApiOperation(value = "Retorna todos os pedidos do Usuário")
@@ -55,7 +55,7 @@ public class PedidoController {
             model.put("message","Nenhum pedido encontrado");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);}
         log.info("Foram encontrados " + pedidos.size() + " pedidos feitos pelo usuário de CPF: "+ cpf);
-        return ResponseEntity.status(HttpStatus.FOUND).body(pedidos);
+        return ResponseEntity.status(HttpStatus.OK).body(pedidos);
     }
 
     @ApiOperation(value = "Retorna os pedidos não finalizados")
@@ -68,7 +68,7 @@ public class PedidoController {
             model.put("message","Nenhum pedido encontrado");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);}
         log.info("Foram encontrados " + pedidos.size());
-        return ResponseEntity.status(HttpStatus.FOUND).body(pedidos);
+        return ResponseEntity.status(HttpStatus.OK).body(pedidos);
     }
 
     @ApiOperation(value = "Cadastra um novo pedido na base de dados")
