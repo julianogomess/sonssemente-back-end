@@ -35,6 +35,7 @@ public class ConfigSecurity extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/users/cadastro").permitAll()
                 .antMatchers("/users/login").permitAll()
+                .antMatchers("/pedidos/**").permitAll()
                 .antMatchers("/fornecedores/**").hasAuthority("ADMIN").anyRequest().authenticated().and().csrf()
                 .disable().exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint()).and()
                 .apply(new JwtConfigurer(jwtTokenProvider));

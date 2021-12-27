@@ -1,15 +1,11 @@
 package com.somsemente.organicos.errorHandlers;
-
-import ch.qos.logback.core.net.SyslogOutputStream;
-import com.mongodb.MongoWriteException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -54,6 +50,13 @@ public class ErroDeValidacaoHandler {
         log.info("Cadastro de item ja conta na base, erro: " + e);
         return e[0].replace('{', ' ').replace('}', ' ') + "já existe.";
 
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(com.fasterxml.jackson.databind.exc.InvalidFormatException.class)
+    public String handle(InvalidFormatException exception) {
+        log.error(exception.getLocalizedMessage());
+        return "Formatação da mensagem invalida! Procure pelo tipo de dado correto.";
     }
 
 }

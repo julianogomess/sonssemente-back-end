@@ -21,19 +21,13 @@ import javax.validation.constraints.NotNull;
 public class Fornecedor {
     @Id
     private String id;
-    @NotBlank(message = "Campo Nome Completo é obrigatório")
     private String nome;
-    @NotBlank (message = "Campo Email é obrigatório")
-    @Email
     @Indexed(unique = true)
     private String email;
-    @NotBlank (message = "Campo Celular é obrigatório")
     @Indexed(unique = true)
     private String telefone;
-    @CNPJ
     @Indexed(unique = true)
     private String cnpj;
     @Valid
-    @NotNull
     private Endereco endereco;
 }

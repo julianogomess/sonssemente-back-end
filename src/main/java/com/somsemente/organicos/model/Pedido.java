@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
 
 @Document(collection = "Pedidos")
 @Getter
@@ -21,8 +21,9 @@ public class Pedido {
     @DBRef
     private User cliente;
     @NotNull
-    private Map<Produto, Double> lista;
+    private List<ItemPedido> lista;
     @NotNull
     private Date data;
     private boolean finalizado;
+    private Double valor;
 }
