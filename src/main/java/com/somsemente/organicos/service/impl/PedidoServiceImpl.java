@@ -62,8 +62,13 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public Pedido update(Pedido pedido) {
+    public Pedido updateStatus(Pedido pedido) {
         pedido.setFinalizado(true);
+        return repository.save(pedido);
+    }
+
+    @Override
+    public Pedido updatePedido(Pedido pedido) {
         return repository.save(pedido);
     }
 

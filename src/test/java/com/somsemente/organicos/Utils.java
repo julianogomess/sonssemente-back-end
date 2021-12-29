@@ -2,6 +2,10 @@ package com.somsemente.organicos;
 
 import com.somsemente.organicos.model.*;
 import com.somsemente.organicos.model.utils.Tipo;
+import org.springframework.security.core.parameters.P;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utils {
     public Fornecedor fornecedor(){
@@ -34,6 +38,15 @@ public class Utils {
         return p;
     }
 
+    public Produto produto2(){
+        Produto p = new Produto();
+        p.setFornecedor(this.fornecedor());
+        p.setNome("Abacaxi");
+        p.setPreco(4.0);
+        p.setTipo(Tipo.Fruta);
+        return p;
+    }
+
     public User user(){
         User u = new User();
         u.setNome("Livia");
@@ -44,5 +57,22 @@ public class Utils {
         u.setTelefone("1199901221");
         u.setEndereco(this.endereco());
         return u;
+    }
+
+    public Pedido pedido(){
+        Pedido p = new Pedido();
+        p.setCliente(this.user());
+        List<ItemPedido> lista = new ArrayList<>();
+        lista.add(new ItemPedido(this.produto(),5.0));
+        lista.add(new ItemPedido(this.produto2(),5.0));
+        p.setLista(lista);
+        return p;
+    }
+
+    public List<ItemPedido> lista(Produto p1, Produto p2){
+        List<ItemPedido> lista = new ArrayList<>();
+        lista.add(new ItemPedido(p1,5.0));
+        lista.add(new ItemPedido(p2,5.0));
+        return lista;
     }
 }

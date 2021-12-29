@@ -62,4 +62,18 @@ public class FornecedorController {
         fornecedorService.deleteByCnpj(cnpj);
         return ResponseEntity.status(HttpStatus.OK).body("Fornecedor deletado!");
     }
+
+    @ApiOperation(value = "Edita o fornecedor")
+    @PutMapping(value = "/atualizar/{cnpj}")
+    public ResponseEntity atualizarFornecedor(@PathVariable String cnpj, @RequestBody @Valid FornecedorDTO fornecedor){
+        log.info("Busca do fornecedor para atualizar");
+        Fornecedor f = fornecedorService.findByCnpj(cnpj);
+        if (f==null){
+            log.info("Fornecedor não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fornecedor não encontrado");
+        }
+        f = fornecedorService.atualizar(f,fornecedor);
+        log.info("Fornecedor atualizado!");
+        return ResponseEntity.status(HttpStatus.OK).body(f);
+    }
 }

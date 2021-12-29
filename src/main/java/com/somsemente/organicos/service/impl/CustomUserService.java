@@ -1,8 +1,10 @@
 package com.somsemente.organicos.service.impl;
 
+import com.somsemente.organicos.dto.UserDTO;
 import com.somsemente.organicos.model.utils.Role;
 import com.somsemente.organicos.model.User;
 import com.somsemente.organicos.repository.UserRepository;
+import com.somsemente.organicos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +19,7 @@ import java.util.*;
 
 @Service
 @Primary
-public class CustomUserService implements UserDetailsService {
+public class CustomUserService implements UserDetailsService, UserService {
 
     @Autowired
     UserRepository userRepository;
@@ -25,21 +27,24 @@ public class CustomUserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
 
+    @Override
     public User findByEmail(String email){
         return userRepository.findByEmail(email);
     }
-
+    @Override
     public User findByCpf(String cpf){
         return userRepository.findByCpf(cpf);
     }
-
+    @Override
     public void deleteByCpf(String cpf){
         userRepository.deleteByCpf(cpf);
     }
 
+    @Override
     public List<User> findAll(){
         return userRepository.findAll();
     }
+    @Override
     public User save(User user){
         user.setDataCriacao(new Date());
         user.setEnabled(true);
@@ -48,6 +53,17 @@ public class CustomUserService implements UserDetailsService {
         user.setRoles(roles);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+    }
+    @Override
+    public User atualizar(User u, UserDTO dto){
+        u.setDataNasc(dto.getDataNasc());
+        u.setEmail(dto.getEmail());
+        u.setNome(dto.getNome());
+        u.setCpf(dto.getCpf());
+        u.setTelefone(dto.getTelefone());
+        u.setEndereco(dto.getEndereco());
+        u.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+        return userRepository.save(u);
     }
 
     @Override
@@ -72,4 +88,6 @@ public class CustomUserService implements UserDetailsService {
     private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
     }
+
+
 }

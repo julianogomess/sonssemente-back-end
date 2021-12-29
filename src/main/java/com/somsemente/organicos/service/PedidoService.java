@@ -13,5 +13,6 @@ public interface PedidoService {
     List<Pedido> findAll();
     List<Pedido> findNaoFinalizado();
     Pedido save(List<ItemPedido> items, User user);
-    Pedido update(Pedido pedido);
+    Pedido updateStatus(Pedido pedido);
+    Pedido updatePedido(Pedido pedido);
 }

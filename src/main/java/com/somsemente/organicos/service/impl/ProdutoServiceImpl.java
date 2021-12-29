@@ -43,4 +43,9 @@ public class ProdutoServiceImpl implements ProdutoService {
     public void deleteById(String id) {
         pr.deleteById(id);
     }
+
+    @Override
+    public void deleteByNome(String nome) {
+        pr.deleteByNome(nome);
+    }
 }

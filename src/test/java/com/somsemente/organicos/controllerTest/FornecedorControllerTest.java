@@ -92,4 +92,21 @@ public class FornecedorControllerTest {
                 .andExpect(status().isUnauthorized()).andReturn();
 
     }
+
+    @Test
+    void atualizarByCpnj() throws Exception{
+        Fornecedor fornecedor = u.fornecedor();
+        service.save(fornecedor);
+        fornecedor.setNome("Fazenda dos Legumes");
+        String token = jwtTokenProvider.createToken("abc@ibm.com",ur.findByEmail("abc@ibm.com").getRoles());
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/api/fornecedores/atualizar/"+fornecedor.getCnpj())
+                        .header("Authorization", "Bearer " + token)
+                        .content(objectMapper.writeValueAsString(fornecedor))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andReturn();
+        String resultString = result.getResponse().getContentAsString();
+        Assertions.assertTrue(resultString.contains(fornecedor.getNome()));
+        service.deleteByCnpj(fornecedor.getCnpj());
+    }
 }

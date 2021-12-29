@@ -117,4 +117,23 @@ class UserControllerTest {
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertTrue(resultString.contains("Cliente Deletado!"));
     }
+
+    @Test
+    void atualizarByCpf() throws Exception{
+        User user = u.user();
+        service.save(user);
+        user.setNome("Joelson");
+        String token = jwtTokenProvider.createToken(user.getEmail(),user.getRoles());
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/api/users/atualizar/"+user.getCpf())
+                        .header("Authorization", "Bearer " + token)
+                        .content(objectMapper.writeValueAsString(user))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+        String resultCase = result.getResponse().getContentAsString();
+        Assertions.assertNotNull(resultCase);
+        Assertions.assertTrue(resultCase.contains(user.getNome()));
+        service.deleteByCpf(user.getCpf());
+    }
 }

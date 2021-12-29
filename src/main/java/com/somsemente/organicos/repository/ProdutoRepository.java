@@ -11,4 +11,5 @@ import java.util.List;
 public interface ProdutoRepository extends MongoRepository<Produto, String> {
     List<Produto> findByTipo(Tipo tipo);
     Produto findByNome(String nome);
+    void deleteByNome(String nome);
 }

@@ -1,5 +1,6 @@
 package com.somsemente.organicos.service.impl;
 
+import com.somsemente.organicos.dto.FornecedorDTO;
 import com.somsemente.organicos.model.Fornecedor;
 import com.somsemente.organicos.repository.FornecedorRepository;
 import com.somsemente.organicos.service.FornecedorService;
@@ -31,5 +32,15 @@ public class FornecedorServiceImpl implements FornecedorService {
     @Override
     public void deleteByCnpj(String cnpj) {
         fr.deleteByCnpj(cnpj);
+    }
+
+    @Override
+    public Fornecedor atualizar(Fornecedor f, FornecedorDTO dto) {
+        f.setEmail(dto.getEmail());
+        f.setCnpj(dto.getCnpj());
+        f.setTelefone(dto.getTelefone());
+        f.setEndereco(dto.getEndereco());
+        f.setNome(dto.getNome());
+        return fr.save(f);
     }
 }

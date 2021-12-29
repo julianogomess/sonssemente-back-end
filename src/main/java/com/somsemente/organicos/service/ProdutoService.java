@@ -10,4 +10,5 @@ public interface ProdutoService {
     Produto save(Produto produto,String cnpj);
     List<Produto> findByTipo(Tipo tipo);
     void deleteById(String id);
+    void deleteByNome(String nome);
 }

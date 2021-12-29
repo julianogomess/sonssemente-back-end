@@ -112,10 +112,28 @@ public class PedidoController {
             model.put("message","Pedido não encontrado");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
         }
-        pedido = pedidoService.update(pedido);
+        pedido = pedidoService.updateStatus(pedido);
         log.info("Pedido atualizado");
         model.put("message","Pedido atualizado com sucesso");
+        model.put("object",pedido);
         return ResponseEntity.status(HttpStatus.OK).body(model);
     }
 
+    @ApiOperation(value = "Atualiza os itens de um pedido")
+    @PutMapping(value = "/atualizar/{id}")
+    public ResponseEntity atualizarPedido(@RequestBody List<ItemPedido> items, @PathVariable String id){
+        log.info("Cadastro de pedido iniciado, busca do pedido por ID");
+        Pedido pedido = pedidoService.findById(id);
+        if(pedido==null){
+            log.info("Id invalido, pedido não encontrado!");
+            model.put("message","Id invalido, pedido não encontrado!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
+        }
+        pedido.setLista(items);
+        pedido = pedidoService.updatePedido(pedido);
+        log.info("Pedido atualizado com com sucesso");
+        model.put("message","Pedido atualizado com sucesso");
+        model.put("object",pedido);
+        return ResponseEntity.status(HttpStatus.OK).body(model);
+    }
 }

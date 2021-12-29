@@ -2,7 +2,9 @@ package com.somsemente.organicos.controller;
 
 import com.somsemente.organicos.config.jwtConfig.JwtTokenProvider;
 import com.somsemente.organicos.dto.AuthBody;
+import com.somsemente.organicos.dto.FornecedorDTO;
 import com.somsemente.organicos.dto.UserDTO;
+import com.somsemente.organicos.model.Fornecedor;
 import com.somsemente.organicos.model.User;
 import com.somsemente.organicos.service.impl.CustomUserService;
 import io.swagger.annotations.Api;
@@ -100,6 +102,20 @@ public class UserController {
         userService.deleteByCpf(cpf);
         log.info("Cliente deletado!");
         return ResponseEntity.status(HttpStatus.OK).body("Cliente Deletado!");
+    }
+
+    @ApiOperation(value = "Edita o usuario por cpf")
+    @PutMapping(value = "/atualizar/{cpf}")
+    public ResponseEntity atualizarUsuario(@PathVariable String cpf, @RequestBody @Valid UserDTO user){
+        log.info("Busca do user para atualizar");
+        User u = userService.findByCpf(cpf);
+        if (u==null){
+            log.info("Cliente não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
+        }
+        u = userService.atualizar(u,user);
+        log.info("Cliente atualizado!");
+        return ResponseEntity.status(HttpStatus.OK).body(u);
     }
 
 
