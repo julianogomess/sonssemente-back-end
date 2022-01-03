@@ -48,4 +48,9 @@ public class ProdutoServiceImpl implements ProdutoService {
     public void deleteByNome(String nome) {
         pr.deleteByNome(nome);
     }
+
+    @Override
+    public Produto findByNome(String nome) {
+        return pr.findByNome(nome);
+    }
 }

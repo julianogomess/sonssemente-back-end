@@ -11,4 +11,5 @@ public interface ProdutoService {
     List<Produto> findByTipo(Tipo tipo);
     void deleteById(String id);
     void deleteByNome(String nome);
+    Produto findByNome(String nome);
 }

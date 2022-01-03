@@ -49,7 +49,10 @@ public class CustomUserService implements UserDetailsService, UserService {
         user.setDataCriacao(new Date());
         user.setEnabled(true);
         Set<Role> roles = new HashSet<>();
-        roles.add(Role.ADMIN);
+        if(user.getRoles()!=null) {
+            roles = user.getRoles();
+        }
+        roles.add(Role.USER);
         user.setRoles(roles);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
