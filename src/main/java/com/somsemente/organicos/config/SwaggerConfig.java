@@ -39,7 +39,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("Spring Boot Rest Api para Sons da Semente")
                 .description("Back end para cadastro de produtos, fornecedores, controle de usuários e realizaçao de pedidos")
-                .version("1.0.0")
+                .version("1.1.0")
                 .contact(new Contact("Juliano Gomes", "https://github.com/julianogomess/sonssemente-back-end","julianogomes23s@outlook.com" ))
                 .build();
     }
