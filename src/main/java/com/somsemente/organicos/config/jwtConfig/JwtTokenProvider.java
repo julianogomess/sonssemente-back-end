@@ -1,6 +1,6 @@
 package com.somsemente.organicos.config.jwtConfig;
 
-import com.somsemente.organicos.model.Role;
+import com.somsemente.organicos.model.utils.Role;
 import com.somsemente.organicos.service.impl.CustomUserService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;

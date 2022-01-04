@@ -1,7 +1,7 @@
 package com.somsemente.organicos.serviceTest;
 
 import com.somsemente.organicos.Utils;
-import com.somsemente.organicos.model.Role;
+import com.somsemente.organicos.model.utils.Role;
 import com.somsemente.organicos.model.User;
 import com.somsemente.organicos.repository.UserRepository;
 import com.somsemente.organicos.service.impl.CustomUserService;
@@ -81,7 +81,6 @@ class CustomUserServiceTest {
         User tests = repository.findByCpf(uTest.getCpf());
         Assertions.assertNotNull(tests);
         Assertions.assertNotNull(tests.getId());
-        Assertions.assertTrue(tests.getRoles().contains(Role.ADMIN));
         Assertions.assertEquals(tests.getNome(),uTest.getNome());
         repository.delete(userDelete);
     }

@@ -4,7 +4,6 @@ package com.somsemente.organicos.controllerTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.somsemente.organicos.Utils;
 import com.somsemente.organicos.config.jwtConfig.JwtTokenProvider;
-import com.somsemente.organicos.model.Fornecedor;
 import com.somsemente.organicos.model.Produto;
 import com.somsemente.organicos.repository.UserRepository;
 import com.somsemente.organicos.service.FornecedorService;
@@ -49,21 +48,21 @@ public class ProdutoControllerTest {
     @Test
     void getProdutos() throws Exception {
         String token = jwtTokenProvider.createToken("abc@ibm.com",ur.findByEmail("abc@ibm.com").getRoles());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/produtos/listatodos")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/produtos/listatodos")
                         .header("Authorization", "Bearer " + token))
-                .andExpect(status().isFound()).andReturn();
+                .andExpect(status().isOk()).andReturn();
         String resultString = result.getResponse().getContentAsString();
-        Assertions.assertTrue(resultString.contains("Batata"));
+        Assertions.assertTrue(resultString.contains("Repolho"));
     }
 
     @Test
     void getProdutoPorTipo() throws Exception {
         String token = jwtTokenProvider.createToken("abc@ibm.com",ur.findByEmail("abc@ibm.com").getRoles());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/produtos/buscaportipo/Legume")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/produtos/buscaportipo/Verdura")
                         .header("Authorization", "Bearer " + token))
-                .andExpect(status().isFound()).andReturn();
+                .andExpect(status().isOk()).andReturn();
         String resultString = result.getResponse().getContentAsString();
-        Assertions.assertTrue(resultString.contains("Legume"));
+        Assertions.assertTrue(resultString.contains("Verdura"));
     }
 
     @Test
@@ -71,7 +70,7 @@ public class ProdutoControllerTest {
         Produto p = u.produto();
         fornecedorService.save(p.getFornecedor());
         String token = jwtTokenProvider.createToken("abc@ibm.com",ur.findByEmail("abc@ibm.com").getRoles());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/produtos/cadastro/"+p.getFornecedor().getCnpj())
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/produtos/cadastro/"+p.getFornecedor().getCnpj())
                         .header("Authorization", "Bearer " + token)
                         .content(objectMapper.writeValueAsString(p))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -95,7 +94,7 @@ public class ProdutoControllerTest {
         fornecedorService.save(p.getFornecedor());
         p = service.save(p,p.getFornecedor().getCnpj());
         String token = jwtTokenProvider.createToken("abc@ibm.com",ur.findByEmail("abc@ibm.com").getRoles());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/produtos/deleteporid/"+p.getId())
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/produtos/deleteporid/"+p.getId())
                 .header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andReturn();
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertTrue(resultString.contains("Produto"));

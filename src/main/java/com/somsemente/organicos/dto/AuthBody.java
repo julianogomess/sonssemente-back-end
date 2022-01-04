@@ -1,4 +1,4 @@
-package com.somsemente.organicos.model;
+package com.somsemente.organicos.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

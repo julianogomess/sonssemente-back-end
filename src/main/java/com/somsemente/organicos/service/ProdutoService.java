@@ -1,7 +1,7 @@
 package com.somsemente.organicos.service;
 
 import com.somsemente.organicos.model.Produto;
-import com.somsemente.organicos.model.Tipo;
+import com.somsemente.organicos.model.utils.Tipo;
 
 import java.util.List;
 
@@ -10,4 +10,6 @@ public interface ProdutoService {
     Produto save(Produto produto,String cnpj);
     List<Produto> findByTipo(Tipo tipo);
     void deleteById(String id);
+    void deleteByNome(String nome);
+    Produto findByNome(String nome);
 }

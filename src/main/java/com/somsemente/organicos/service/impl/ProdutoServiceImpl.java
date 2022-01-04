@@ -2,7 +2,7 @@ package com.somsemente.organicos.service.impl;
 
 import com.somsemente.organicos.model.Fornecedor;
 import com.somsemente.organicos.model.Produto;
-import com.somsemente.organicos.model.Tipo;
+import com.somsemente.organicos.model.utils.Tipo;
 import com.somsemente.organicos.repository.ProdutoRepository;
 import com.somsemente.organicos.service.FornecedorService;
 import com.somsemente.organicos.service.ProdutoService;
@@ -42,5 +42,15 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public void deleteById(String id) {
         pr.deleteById(id);
+    }
+
+    @Override
+    public void deleteByNome(String nome) {
+        pr.deleteByNome(nome);
+    }
+
+    @Override
+    public Produto findByNome(String nome) {
+        return pr.findByNome(nome);
     }
 }

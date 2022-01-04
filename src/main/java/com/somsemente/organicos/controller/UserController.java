@@ -1,7 +1,10 @@
 package com.somsemente.organicos.controller;
 
 import com.somsemente.organicos.config.jwtConfig.JwtTokenProvider;
-import com.somsemente.organicos.model.AuthBody;
+import com.somsemente.organicos.dto.AuthBody;
+import com.somsemente.organicos.dto.FornecedorDTO;
+import com.somsemente.organicos.dto.UserDTO;
+import com.somsemente.organicos.model.Fornecedor;
 import com.somsemente.organicos.model.User;
 import com.somsemente.organicos.service.impl.CustomUserService;
 import io.swagger.annotations.Api;
@@ -22,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @Api(value = "Gerenciamento de usuários e login")
 @Slf4j
 public class UserController {
@@ -61,8 +64,8 @@ public class UserController {
 
     @ApiOperation(value = "Cadastro do cliente")
     @PostMapping("/cadastro")
-    public ResponseEntity cadastro(@Valid @RequestBody User user){
-        User u = userService.save(user);
+    public ResponseEntity cadastro(@Valid @RequestBody UserDTO user){
+        User u = userService.save(user.trasnformar());
         log.info("Cliente cadastrado com sucesso");
         return ResponseEntity.status(HttpStatus.CREATED).body(u);
     }
@@ -77,7 +80,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não há clientes na base");
         }
         log.info(users.size()+" clientes encontrado!");
-        return ResponseEntity.status(HttpStatus.FOUND).body(users);
+        return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
     @ApiOperation(value = "Retorna o cliente por cpf")
@@ -90,7 +93,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum cliente encontrado com este cpf");
         }
         log.info("Cliente " + user.getNome() + " encontrado.");
-        return ResponseEntity.status(HttpStatus.FOUND).body(user);
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @ApiOperation(value = "Exclui o cliente por cpf")
@@ -99,6 +102,20 @@ public class UserController {
         userService.deleteByCpf(cpf);
         log.info("Cliente deletado!");
         return ResponseEntity.status(HttpStatus.OK).body("Cliente Deletado!");
+    }
+
+    @ApiOperation(value = "Edita o usuario por cpf")
+    @PutMapping(value = "/atualizar/{cpf}")
+    public ResponseEntity atualizarUsuario(@PathVariable String cpf, @RequestBody @Valid UserDTO user){
+        log.info("Busca do user para atualizar");
+        User u = userService.findByCpf(cpf);
+        if (u==null){
+            log.info("Cliente não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
+        }
+        u = userService.atualizar(u,user);
+        log.info("Cliente atualizado!");
+        return ResponseEntity.status(HttpStatus.OK).body(u);
     }
 
 

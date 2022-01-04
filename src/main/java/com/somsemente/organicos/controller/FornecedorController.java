@@ -1,12 +1,12 @@
 package com.somsemente.organicos.controller;
 
 
+import com.somsemente.organicos.dto.FornecedorDTO;
 import com.somsemente.organicos.model.Fornecedor;
 import com.somsemente.organicos.service.FornecedorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.internal.util.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/fornecedores")
+@RequestMapping("/api/fornecedores")
 @Api(value = "Gerenciamento de clientes")
 @Slf4j
 public class FornecedorController {
@@ -33,7 +33,7 @@ public class FornecedorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         log.info(fornecedores.size()+ " fornecedores encontrados!");
-        return ResponseEntity.status(HttpStatus.FOUND).body(fornecedores);
+        return ResponseEntity.status(HttpStatus.OK).body(fornecedores);
     }
 
     @ApiOperation(value = "Retorna os dados do fornecedor passando o cnpj")
@@ -46,13 +46,13 @@ public class FornecedorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         log.info("Fornecedor encontrado: " + fornecedor.getNome());
-        return ResponseEntity.status(HttpStatus.FOUND).body(fornecedor);
+        return ResponseEntity.status(HttpStatus.OK).body(fornecedor);
     }
     @ApiOperation(value = "Realiza o cadastro do fornecedor")
     @PostMapping(value = "/cadastro")
-    public ResponseEntity<Object> cadastroFornecedor(@Valid @RequestBody Fornecedor fornecedor){
+    public ResponseEntity<Object> cadastroFornecedor(@Valid @RequestBody FornecedorDTO fornecedor){
         log.info("Cadastro de novo fornecedor");
-        return ResponseEntity.status(HttpStatus.CREATED).body(fornecedorService.save(fornecedor));
+        return ResponseEntity.status(HttpStatus.CREATED).body(fornecedorService.save(fornecedor.transformar()));
     }
 
     @ApiOperation(value = "Exclui o fornecedor por cnpj")
@@ -61,5 +61,19 @@ public class FornecedorController {
         log.info("Fornecedor deletado! CNPJ: "+ cnpj);
         fornecedorService.deleteByCnpj(cnpj);
         return ResponseEntity.status(HttpStatus.OK).body("Fornecedor deletado!");
+    }
+
+    @ApiOperation(value = "Edita o fornecedor")
+    @PutMapping(value = "/atualizar/{cnpj}")
+    public ResponseEntity atualizarFornecedor(@PathVariable String cnpj, @RequestBody @Valid FornecedorDTO fornecedor){
+        log.info("Busca do fornecedor para atualizar");
+        Fornecedor f = fornecedorService.findByCnpj(cnpj);
+        if (f==null){
+            log.info("Fornecedor não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fornecedor não encontrado");
+        }
+        f = fornecedorService.atualizar(f,fornecedor);
+        log.info("Fornecedor atualizado!");
+        return ResponseEntity.status(HttpStatus.OK).body(f);
     }
 }

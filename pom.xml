@@ -81,6 +81,32 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<spring.profile>dev</spring.profile>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+
+		<profile>
+			<id>prod</id>
+			<properties>
+				<spring.profile>prod</spring.profile>
+			</properties>
+			<activation>
+				<property>
+					<name>heroku</name>
+					<value>prod</value>
+				</property>
+			</activation>
+		</profile>
+	</profiles>
+
+
 	<build>
 		<plugins>
 			<plugin>
@@ -96,6 +122,12 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 
 </project>
