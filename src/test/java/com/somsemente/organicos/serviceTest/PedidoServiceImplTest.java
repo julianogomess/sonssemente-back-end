@@ -27,7 +27,6 @@ class PedidoServiceImplTest {
 
     Utils u = new Utils();
 
-
     @Test
     void delete() {
         User user = userService.save(u.user());
@@ -85,14 +84,12 @@ class PedidoServiceImplTest {
     void findAll() {
         List<Pedido> lista = pedidoService.findAll();
         Assertions.assertFalse(lista.isEmpty());
-        Assertions.assertTrue(lista.get(0).getId().equals("61c9cea75628416c21bde328"));
     }
 
     @Test
     void findNaoFinalizado() {
         List<Pedido> lista = pedidoService.findNaoFinalizado();
         Assertions.assertFalse(lista.isEmpty());
-        Assertions.assertTrue(lista.get(0).getId().equals("61c9d509eddbab1a393b6f6d"));
     }
 
     @Test

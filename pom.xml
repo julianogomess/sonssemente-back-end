@@ -97,6 +97,12 @@
 			<properties>
 				<spring.profile>prod</spring.profile>
 			</properties>
+			<activation>
+				<property>
+					<name>heroku</name>
+					<value>prod</value>
+				</property>
+			</activation>
 		</profile>
 	</profiles>
 
@@ -116,6 +122,12 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 
 </project>

@@ -59,4 +59,11 @@ public class ErroDeValidacaoHandler {
         return "Formatação da mensagem invalida! Procure pelo tipo de dado correto.";
     }
 
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NullPointerException.class)
+    public String handle(NullPointerException exception){
+        log.error(exception.getLocalizedMessage());
+        return exception.getLocalizedMessage();
+    }
+
 }

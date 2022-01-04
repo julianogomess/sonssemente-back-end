@@ -81,7 +81,6 @@ class CustomUserServiceTest {
         User tests = repository.findByCpf(uTest.getCpf());
         Assertions.assertNotNull(tests);
         Assertions.assertNotNull(tests.getId());
-        Assertions.assertTrue(tests.getRoles().contains(Role.ADMIN));
         Assertions.assertEquals(tests.getNome(),uTest.getNome());
         repository.delete(userDelete);
     }

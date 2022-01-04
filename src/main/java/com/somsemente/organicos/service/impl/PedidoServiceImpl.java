@@ -1,5 +1,6 @@
 package com.somsemente.organicos.service.impl;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.somsemente.organicos.model.ItemPedido;
 import com.somsemente.organicos.model.Pedido;
 import com.somsemente.organicos.model.User;
@@ -73,10 +74,14 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     private Double calcValor(List<ItemPedido> items){
-        Double soma = 0.0;
-        for(ItemPedido i: items){
-            soma += i.getProduto().getPreco()*i.getQuantidade();
+        try {
+            Double soma = 0.0;
+            for (ItemPedido i : items) {
+                soma += i.getProduto().getPreco() * i.getQuantidade();
+            }
+            return soma;
+        }catch (NullPointerException exception){
+            throw new NullPointerException("Variavel mal escrita");
         }
-        return soma;
     }
 }
