@@ -90,6 +90,7 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+
 		</profile>
 
 		<profile>
@@ -97,12 +98,7 @@
 			<properties>
 				<spring.profile>prod</spring.profile>
 			</properties>
-			<activation>
-				<property>
-					<name>heroku</name>
-					<value>prod</value>
-				</property>
-			</activation>
+
 		</profile>
 	</profiles>
 
