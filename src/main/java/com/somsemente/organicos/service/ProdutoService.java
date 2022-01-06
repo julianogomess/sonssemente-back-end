@@ -12,4 +12,5 @@ public interface ProdutoService {
     void deleteById(String id);
     void deleteByNome(String nome);
     Produto findByNome(String nome);
+    Produto findById(String id);
 }

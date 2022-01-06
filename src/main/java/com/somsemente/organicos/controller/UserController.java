@@ -105,9 +105,14 @@ public class UserController {
     @DeleteMapping("/delete/{cpf}")
     public ResponseEntity deleteByCpf(@PathVariable String cpf){
         Map<Object, Object> model = new HashMap<>();
-        userService.deleteByCpf(cpf);
-        log.info("Cliente deletado!");
+        boolean t = userService.deleteByCpf(cpf);
+        if (!t){
+            log.info("Cliente não encontrado");
+            model.put("message","Cliente não encontrado");
+            return ResponseEntity.status(HttpStatus.OK).body(model);
+        }
         model.put("message","Cliente deletado com sucesso");
+        log.info("Cliente deletado!");
         return ResponseEntity.status(HttpStatus.OK).body(model);
     }
 

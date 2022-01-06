@@ -7,7 +7,7 @@ import com.somsemente.organicos.model.User;
 import java.util.List;
 
 public interface PedidoService {
-    void delete(Pedido pedido);
+    boolean delete(Pedido pedido);
     List<Pedido> findByUser(String cpf);
     Pedido findById(String id);
     List<Pedido> findAll();

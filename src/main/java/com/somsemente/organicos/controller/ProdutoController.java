@@ -76,6 +76,12 @@ public class ProdutoController {
     @DeleteMapping(value = "/deleteporid/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable String id){
         Map<Object, Object> model = new HashMap<>();
+        Produto p = produtoService.findById(id);
+        if (p==null){
+            log.info("Produto não encontrado!");
+            model.put("message","Produto não encontrado");
+            return ResponseEntity.status(HttpStatus.OK).body(model);
+        }
         produtoService.deleteById(id);
         log.info("Produto deletado!");
         model.put("message","Produto deletado com sucesso");

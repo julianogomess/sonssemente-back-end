@@ -36,8 +36,12 @@ public class CustomUserService implements UserDetailsService, UserService {
         return userRepository.findByCpf(cpf);
     }
     @Override
-    public void deleteByCpf(String cpf){
+    public boolean deleteByCpf(String cpf){
+        if (userRepository.findByCpf(cpf)==null){
+            return false;
+        }
         userRepository.deleteByCpf(cpf);
+        return true;
     }
 
     @Override

@@ -22,8 +22,12 @@ public class PedidoServiceImpl implements PedidoService {
     CustomUserService userService;
 
     @Override
-    public void delete(Pedido pedido) {
+    public boolean delete(Pedido pedido) {
+        if(repository.findById(pedido.getId())==null){
+            return false;
+        }
         repository.delete(pedido);
+        return true;
     }
 
     @Override
