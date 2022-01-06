@@ -114,11 +114,13 @@ public class UserController {
     @ApiOperation(value = "Edita o usuario por cpf")
     @PutMapping(value = "/atualizar/{cpf}")
     public ResponseEntity atualizarUsuario(@PathVariable String cpf, @RequestBody @Valid UserDTO user){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Busca do user para atualizar");
         User u = userService.findByCpf(cpf);
         if (u==null){
             log.info("Cliente não encontrado");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
+            model.put("message","Cliente não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
         }
         u = userService.atualizar(u,user);
         log.info("Cliente atualizado!");
