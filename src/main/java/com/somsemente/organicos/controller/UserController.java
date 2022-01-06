@@ -38,6 +38,8 @@ public class UserController {
     @Autowired
     CustomUserService userService;
 
+    private Map<Object, Object> model = new HashMap<>();
+
     @ApiOperation(value = "Login para cliente")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthBody info){
@@ -47,8 +49,7 @@ public class UserController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,info.getPassword()));
             log.info("Cliente autenticado!");
             String token = jwtTokenProvider.createToken(username,userService.findByEmail(username).getRoles());
-            log.info("Toker gerado!");
-            Map<Object, Object> model = new HashMap<>();
+            log.info("Token gerado!");
             model.put("email", username);
             model.put("token", token);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(model);
@@ -77,7 +78,8 @@ public class UserController {
         List<User> users = userService.findAll();
         if (users.isEmpty()){
             log.info("Nenhum cliente encontrado!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não há clientes na base");
+            model.put("message","Nenhum cliente encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
         }
         log.info(users.size()+" clientes encontrado!");
         return ResponseEntity.status(HttpStatus.OK).body(users);
@@ -90,7 +92,8 @@ public class UserController {
         User user = userService.findByCpf(cpf);
         if (user==null){
             log.info("Nenhum cliente encontrado!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum cliente encontrado com este cpf");
+            model.put("message","Nenhum cliente encontrado com este CPF");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
         }
         log.info("Cliente " + user.getNome() + " encontrado.");
         return ResponseEntity.status(HttpStatus.OK).body(user);
@@ -101,7 +104,8 @@ public class UserController {
     public ResponseEntity deleteByCpf(@PathVariable String cpf){
         userService.deleteByCpf(cpf);
         log.info("Cliente deletado!");
-        return ResponseEntity.status(HttpStatus.OK).body("Cliente Deletado!");
+        model.put("message","Cliente deletado com sucesso");
+        return ResponseEntity.status(HttpStatus.OK).body(model);
     }
 
     @ApiOperation(value = "Edita o usuario por cpf")
