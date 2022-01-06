@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/fornecedores")
@@ -23,6 +25,8 @@ public class FornecedorController {
     @Autowired
     FornecedorService fornecedorService;
 
+    private Map<Object, Object> model = new HashMap<>();
+
     @ApiOperation(value = "Retorna todos os fornecedores na base")
     @GetMapping(value = "/listatodos")
     public ResponseEntity<Object> getTodosF(){
@@ -30,7 +34,8 @@ public class FornecedorController {
         List<Fornecedor> fornecedores = fornecedorService.findAll();
         if(fornecedores.isEmpty()){
             log.info("Nenhum fornecedor encontrado!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            model.put("message","Nenhum fornecedor encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
         }
         log.info(fornecedores.size()+ " fornecedores encontrados!");
         return ResponseEntity.status(HttpStatus.OK).body(fornecedores);
@@ -43,7 +48,8 @@ public class FornecedorController {
         Fornecedor fornecedor = fornecedorService.findByCnpj(cnpj);
         if (fornecedor==null){
             log.info("Fornecedor não encontrado");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            model.put("message","Nenhum fornecedor encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
         }
         log.info("Fornecedor encontrado: " + fornecedor.getNome());
         return ResponseEntity.status(HttpStatus.OK).body(fornecedor);
@@ -60,7 +66,8 @@ public class FornecedorController {
     public ResponseEntity<Object> deleteByCnpj(@PathVariable String cnpj){
         log.info("Fornecedor deletado! CNPJ: "+ cnpj);
         fornecedorService.deleteByCnpj(cnpj);
-        return ResponseEntity.status(HttpStatus.OK).body("Fornecedor deletado!");
+        model.put("message","Fornecedor deletado com sucesso");
+        return ResponseEntity.status(HttpStatus.OK).body(model);
     }
 
     @ApiOperation(value = "Edita o fornecedor")
@@ -70,7 +77,8 @@ public class FornecedorController {
         Fornecedor f = fornecedorService.findByCnpj(cnpj);
         if (f==null){
             log.info("Fornecedor não encontrado");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fornecedor não encontrado");
+            model.put("message","Nenhum fornecedor encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
         }
         f = fornecedorService.atualizar(f,fornecedor);
         log.info("Fornecedor atualizado!");

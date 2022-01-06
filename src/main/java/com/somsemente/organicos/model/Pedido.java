@@ -20,9 +20,7 @@ public class Pedido {
     private String id;
     @DBRef
     private User cliente;
-    @NotNull
     private List<ItemPedido> lista;
-    @NotNull
     private Date data;
     private boolean finalizado;
     private Double valor;

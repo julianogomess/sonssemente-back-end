@@ -14,7 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -25,6 +27,8 @@ public class ProdutoController {
     @Autowired
     ProdutoService produtoService;
 
+    private Map<Object, Object> model = new HashMap<>();
+
     @ApiOperation(value = "Retorna todos os produtos")
     @GetMapping(value = "/listatodos")
     public ResponseEntity<Object> getProdutos(){
@@ -32,7 +36,8 @@ public class ProdutoController {
         List<Produto> produtos =  produtoService.findAll();
         if(produtos.isEmpty()){
             log.info("Nenhum produto encontrado");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            model.put("message","Nenhum produto encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
         }
         log.info("Foram encontrados " + produtos.size() + " produtos!");
         return ResponseEntity.status(HttpStatus.OK).body(produtos);
@@ -45,7 +50,8 @@ public class ProdutoController {
         List<Produto> produtos =  produtoService.findByTipo(tipo);
         if(produtos.isEmpty()){
             log.info("Nenhum produto encontrado!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);}
+            model.put("message","Nenhum produto encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);}
         log.info("Foram encontrados " + produtos.size() + " produtos do tipo: "+ tipo);
         return ResponseEntity.status(HttpStatus.OK).body(produtos);
     }
@@ -57,7 +63,8 @@ public class ProdutoController {
         Produto p = produtoService.save(produto.trasnformar(), cnpj);
         if(p==null){
             log.info("CNPJ informado invalido ou fornecedor não cadastrado!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CNPJ Invalido! Fornecedor não encontrado");
+            model.put("message","CNPJ Invalido! Fornecedor não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
         }
         log.info("Produto criado!");
         return ResponseEntity.status(HttpStatus.CREATED).body(p);
@@ -68,7 +75,8 @@ public class ProdutoController {
     public ResponseEntity<Object> deleteById(@PathVariable String id){
         produtoService.deleteById(id);
         log.info("Produto deletado!");
-        return ResponseEntity.status(HttpStatus.OK).body("Produto deletado");
+        model.put("message","Produto deletado com sucesso");
+        return ResponseEntity.status(HttpStatus.OK).body(model);
     }
 
 

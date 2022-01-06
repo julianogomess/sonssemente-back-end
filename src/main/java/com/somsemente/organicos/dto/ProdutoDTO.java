@@ -14,9 +14,9 @@ import javax.validation.constraints.PositiveOrZero;
 @Setter
 @NoArgsConstructor
 public class ProdutoDTO {
-    @NotBlank
+    @NotBlank(message = "Campo Nome é obrigatório")
     private String nome;
-    @NotNull
+    @NotNull(message = "Campo Tipo é obrigatório")
     private Tipo tipo;
     @PositiveOrZero
     private Double preco;

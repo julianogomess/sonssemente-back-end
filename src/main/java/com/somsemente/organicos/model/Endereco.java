@@ -11,18 +11,18 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @NoArgsConstructor
 public class Endereco {
-    @NotBlank
+    @NotBlank(message = "Campo Rua do endereço é obrigatório")
     private String rua;
-    @NotBlank
+    @NotBlank(message = "Campo Numero do endereço é obrigatório")
     private String numero;
     private String complemento;
-    @NotBlank
+    @NotBlank(message = "Campo CEP do endereço é obrigatório")
     private String cep;
-    @NotBlank
+    @NotBlank(message = "Campo Bairro do endereço é obrigatório")
     private String bairro;
-    @NotBlank
+    @NotBlank(message = "Campo Cidade do endereço é obrigatório")
     private String cidade;
-    @NotBlank
+    @NotBlank(message = "Campo UF do endereço é obrigatório")
     private String uf;
 
 }
