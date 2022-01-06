@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProdutoServiceImpl implements ProdutoService {
@@ -52,5 +53,14 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public Produto findByNome(String nome) {
         return pr.findByNome(nome);
+    }
+
+    @Override
+    public Produto findById(String id) {
+        Optional<Produto> p= pr.findById(id);
+        if (p==null){
+            return null;
+        }
+        return p.get();
     }
 }

@@ -66,6 +66,12 @@ public class FornecedorController {
     @DeleteMapping(value = "/deleteporcnpj/{cnpj}")
     public ResponseEntity<Object> deleteByCnpj(@PathVariable String cnpj){
         Map<Object, Object> model = new HashMap<>();
+        Fornecedor f = fornecedorService.findByCnpj(cnpj);
+        if (f==null){
+            log.info("Fornecedor não encontrado");
+            model.put("message","Nenhum fornecedor encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
+        }
         log.info("Fornecedor deletado! CNPJ: "+ cnpj);
         fornecedorService.deleteByCnpj(cnpj);
         model.put("message","Fornecedor deletado com sucesso");
