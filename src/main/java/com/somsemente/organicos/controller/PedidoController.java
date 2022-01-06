@@ -29,11 +29,10 @@ public class PedidoController {
     @Autowired
     CustomUserService userService;
 
-    private Map<Object, Object> model = new HashMap<>();
-
     @ApiOperation(value = "Retorna todos os produtos")
     @GetMapping(value = "/listatodos")
     public ResponseEntity getPedidos(){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Busca por todos os pedidos");
         List<Pedido> pedidos =  pedidoService.findAll();
         if(pedidos.isEmpty()){
@@ -48,6 +47,7 @@ public class PedidoController {
     @ApiOperation(value = "Retorna todos os pedidos do Usuário")
     @GetMapping(value = "/buscaporuser/{cpf}")
     public ResponseEntity<Object> getPedidoPorUsuario(@PathVariable String cpf){
+        Map<Object, Object> model = new HashMap<>();
         log.info("busca por usuário");
         List<Pedido> pedidos = pedidoService.findByUser(cpf);
         if(pedidos.isEmpty()){
@@ -61,6 +61,7 @@ public class PedidoController {
     @ApiOperation(value = "Retorna os pedidos não finalizados")
     @GetMapping(value = "/buscaabertos")
     public ResponseEntity getPedidosAbertos(){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Busca todos os pedidos que ainda não foram finalizados");
         List<Pedido> pedidos = pedidoService.findNaoFinalizado();
         if(pedidos.isEmpty()){
@@ -74,6 +75,7 @@ public class PedidoController {
     @ApiOperation(value = "Cadastra um novo pedido na base de dados")
     @PostMapping(value = "/cadastro/{email}")
     public ResponseEntity cadastroPedido(@RequestBody List<ItemPedido> items, @PathVariable String email){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Cadastro de pedido iniciado, busca do usuário por email");
         User user = userService.findByEmail(email);
         if(user==null){
@@ -89,6 +91,7 @@ public class PedidoController {
     @ApiOperation(value = "Deletar pedido por id")
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity deletePedido(@PathVariable String id){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Busca por id do pedido");
         Pedido pedido = pedidoService.findById(id);
         if (pedido==null){
@@ -105,6 +108,7 @@ public class PedidoController {
     @ApiOperation(value = "Atualiza o estado do pedido")
     @PutMapping(value = "/finalizar/{id}")
     public ResponseEntity finalizarPedido(@PathVariable String id){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Busca por id do pedido");
         Pedido pedido = pedidoService.findById(id);
         if (pedido==null){
@@ -122,6 +126,7 @@ public class PedidoController {
     @ApiOperation(value = "Atualiza os itens de um pedido")
     @PutMapping(value = "/atualizar/{id}")
     public ResponseEntity atualizarPedido(@RequestBody List<ItemPedido> items, @PathVariable String id){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Cadastro de pedido iniciado, busca do pedido por ID");
         Pedido pedido = pedidoService.findById(id);
         if(pedido==null){

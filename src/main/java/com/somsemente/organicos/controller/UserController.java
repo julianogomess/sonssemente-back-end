@@ -38,11 +38,11 @@ public class UserController {
     @Autowired
     CustomUserService userService;
 
-    private Map<Object, Object> model = new HashMap<>();
 
     @ApiOperation(value = "Login para cliente")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthBody info){
+        Map<Object, Object> model = new HashMap<>();
         try{
             log.info("Login de cliente");
             String username = info.getEmail();
@@ -74,6 +74,7 @@ public class UserController {
     @ApiOperation(value = "Retorna todos os clientes")
     @GetMapping("/listatodos")
     public ResponseEntity getAll(){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Busca por todos os clientes");
         List<User> users = userService.findAll();
         if (users.isEmpty()){
@@ -88,6 +89,7 @@ public class UserController {
     @ApiOperation(value = "Retorna o cliente por cpf")
     @GetMapping("/buscaporcpf/{cpf}")
     public ResponseEntity getByCpf(@PathVariable("cpf") String cpf){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Busca por CPF");
         User user = userService.findByCpf(cpf);
         if (user==null){
@@ -102,6 +104,7 @@ public class UserController {
     @ApiOperation(value = "Exclui o cliente por cpf")
     @DeleteMapping("/delete/{cpf}")
     public ResponseEntity deleteByCpf(@PathVariable String cpf){
+        Map<Object, Object> model = new HashMap<>();
         userService.deleteByCpf(cpf);
         log.info("Cliente deletado!");
         model.put("message","Cliente deletado com sucesso");
