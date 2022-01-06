@@ -25,11 +25,11 @@ public class FornecedorController {
     @Autowired
     FornecedorService fornecedorService;
 
-    private Map<Object, Object> model = new HashMap<>();
 
     @ApiOperation(value = "Retorna todos os fornecedores na base")
     @GetMapping(value = "/listatodos")
     public ResponseEntity<Object> getTodosF(){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Busca por todos os fornecedores");
         List<Fornecedor> fornecedores = fornecedorService.findAll();
         if(fornecedores.isEmpty()){
@@ -44,6 +44,7 @@ public class FornecedorController {
     @ApiOperation(value = "Retorna os dados do fornecedor passando o cnpj")
     @GetMapping(value = "/buscaporcnpj/{cnpj}")
     public ResponseEntity<Object> getByCnpj(@PathVariable String cnpj){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Busca de fornecedor por CNPJ");
         Fornecedor fornecedor = fornecedorService.findByCnpj(cnpj);
         if (fornecedor==null){
@@ -64,6 +65,7 @@ public class FornecedorController {
     @ApiOperation(value = "Exclui o fornecedor por cnpj")
     @DeleteMapping(value = "/deleteporcnpj/{cnpj}")
     public ResponseEntity<Object> deleteByCnpj(@PathVariable String cnpj){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Fornecedor deletado! CNPJ: "+ cnpj);
         fornecedorService.deleteByCnpj(cnpj);
         model.put("message","Fornecedor deletado com sucesso");
@@ -73,6 +75,7 @@ public class FornecedorController {
     @ApiOperation(value = "Edita o fornecedor")
     @PutMapping(value = "/atualizar/{cnpj}")
     public ResponseEntity atualizarFornecedor(@PathVariable String cnpj, @RequestBody @Valid FornecedorDTO fornecedor){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Busca do fornecedor para atualizar");
         Fornecedor f = fornecedorService.findByCnpj(cnpj);
         if (f==null){

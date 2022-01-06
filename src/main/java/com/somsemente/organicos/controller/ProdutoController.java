@@ -27,11 +27,11 @@ public class ProdutoController {
     @Autowired
     ProdutoService produtoService;
 
-    private Map<Object, Object> model = new HashMap<>();
 
     @ApiOperation(value = "Retorna todos os produtos")
     @GetMapping(value = "/listatodos")
     public ResponseEntity<Object> getProdutos(){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Busca por todos os produtos");
         List<Produto> produtos =  produtoService.findAll();
         if(produtos.isEmpty()){
@@ -46,6 +46,7 @@ public class ProdutoController {
     @ApiOperation(value = "Retorna todos os produtos por tipo")
     @GetMapping(value = "/buscaportipo/{tipo}")
     public ResponseEntity<Object> getProdutoPorTipo(@PathVariable Tipo tipo){
+        Map<Object, Object> model = new HashMap<>();
         log.info("busca por tipo de produto");
         List<Produto> produtos =  produtoService.findByTipo(tipo);
         if(produtos.isEmpty()){
@@ -59,6 +60,7 @@ public class ProdutoController {
     @ApiOperation(value = "Cadastro do produto relacionado ao fornecedor do mesmo")
     @PostMapping(value = "/cadastro/{cnpj}")
     public ResponseEntity<Object> cadastroProduto(@RequestBody @Valid ProdutoDTO produto, @PathVariable String cnpj){
+        Map<Object, Object> model = new HashMap<>();
         log.info("Cadastro de novo produto relacionado ao fornecedor");
         Produto p = produtoService.save(produto.trasnformar(), cnpj);
         if(p==null){
@@ -73,6 +75,7 @@ public class ProdutoController {
     @ApiOperation(value = "Exclui o produto por id")
     @DeleteMapping(value = "/deleteporid/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable String id){
+        Map<Object, Object> model = new HashMap<>();
         produtoService.deleteById(id);
         log.info("Produto deletado!");
         model.put("message","Produto deletado com sucesso");
