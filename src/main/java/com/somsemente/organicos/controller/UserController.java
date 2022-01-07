@@ -109,7 +109,7 @@ public class UserController {
         if (!t){
             log.info("Cliente não encontrado");
             model.put("message","Cliente não encontrado");
-            return ResponseEntity.status(HttpStatus.OK).body(model);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
         }
         model.put("message","Cliente deletado com sucesso");
         log.info("Cliente deletado!");
