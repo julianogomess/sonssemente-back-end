@@ -1,0 +1,519 @@
+{
+	"info": {
+		"_postman_id": "7804481c-31c0-4de0-9c6d-2bcf8a0b5e91",
+		"name": "Test heroku",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cadastro de user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\":\"Dara Gomes\",\n    \"dataNasc\":\"22-02-1999\",\n    \"email\":\"dara@ibm.com\",\n    \"cpf\":\"665.968.790-46\",\n    \"telefone\":\"11975749594\",\n    \"password\":\"abc123\",\n    \"endereco\":{\n        \"rua\":\"alameda ipe\",\n        \"numero\": \"440\",\n        \"complemento\":\"ap 184\",\n        \"cep\":\"07609350\",\n        \"bairro\":\"vila\",\n        \"cidade\":\"mairipora\",\n        \"uf\":\"SP\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/users/cadastro",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"cadastro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca por tipo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAaWJtLmNvbSIsInJvbGVzIjpbIlVTRVIiLCJBRE1JTiJdLCJpYXQiOjE2NDE0ODYzODAsImV4cCI6MTY0MTQ4OTk4MH0.gZJsoxwXpOC5PyzjrNrobUd6I0X73UrQ0dJJAWabj7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/produtos/buscaportipo/Verdura",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"produtos",
+						"buscaportipo",
+						"Verdura"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"abc@ibm.com\",\n    \"password\":\"abc123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/users/login",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca por cnpj",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAaWJtLmNvbSIsInJvbGVzIjpbIlVTRVIiLCJBRE1JTiJdLCJpYXQiOjE2NDE0ODYzODAsImV4cCI6MTY0MTQ4OTk4MH0.gZJsoxwXpOC5PyzjrNrobUd6I0X73UrQ0dJJAWabj7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/fornecedores/buscaporcnpj/07199027000102",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"fornecedores",
+						"buscaporcnpj",
+						"07199027000102"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete por cnpj",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAaWJtLmNvbSIsInJvbGVzIjpbIlVTRVIiLCJBRE1JTiJdLCJpYXQiOjE2NDE0ODYzODAsImV4cCI6MTY0MTQ4OTk4MH0.gZJsoxwXpOC5PyzjrNrobUd6I0X73UrQ0dJJAWabj7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/fornecedores/deleteporcnpj/19360875000122",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"fornecedores",
+						"deleteporcnpj",
+						"19360875000122"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro por fornecedores",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAaWJtLmNvbSIsInJvbGVzIjpbIlVTRVIiLCJBRE1JTiJdLCJpYXQiOjE2NDE0ODYzODAsImV4cCI6MTY0MTQ4OTk4MH0.gZJsoxwXpOC5PyzjrNrobUd6I0X73UrQ0dJJAWabj7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\":\"Casa dos Organicos\",\n    \"email\":\"casa@ibm.com\",\n    \"telefone\":\"1199999000\",\n    \"cnpj\":\"19360875000122\",\n    \"endereco\":{\n        \"rua\":\"alameda ipe\",\n        \"numero\": \"440\",\n        \"complemento\":\"ap 184\",\n        \"cep\":\"07609350\",\n        \"bairro\":\"santa ines\",\n        \"cidade\":\"mairipora\",\n        \"uf\":\"SP\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/fornecedores/cadastro",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"fornecedores",
+						"cadastro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista produtos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAaWJtLmNvbSIsInJvbGVzIjpbIlVTRVIiLCJBRE1JTiJdLCJpYXQiOjE2NDE0ODYzODAsImV4cCI6MTY0MTQ4OTk4MH0.gZJsoxwXpOC5PyzjrNrobUd6I0X73UrQ0dJJAWabj7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{heroku}}/api/produtos/listatodos",
+					"host": [
+						"{{heroku}}"
+					],
+					"path": [
+						"api",
+						"produtos",
+						"listatodos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro produto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAaWJtLmNvbSIsInJvbGVzIjpbIlVTRVIiLCJBRE1JTiJdLCJpYXQiOjE2NDE0ODYzODAsImV4cCI6MTY0MTQ4OTk4MH0.gZJsoxwXpOC5PyzjrNrobUd6I0X73UrQ0dJJAWabj7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\":\"Melancia\",\n    \"tipo\": \"Fruta\",\n    \"preco\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/produtos/cadastro/07199027000102",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"produtos",
+						"cadastro",
+						"07199027000102"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca por todos users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAaWJtLmNvbSIsInJvbGVzIjpbIlVTRVIiLCJBRE1JTiJdLCJpYXQiOjE2NDE0ODYzODAsImV4cCI6MTY0MTQ4OTk4MH0.gZJsoxwXpOC5PyzjrNrobUd6I0X73UrQ0dJJAWabj7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/users/listatodos",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"listatodos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro de pedido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"produto\":{\n        \"id\": \"61d71ecbac609244d8547ab3\",\n        \"nome\": \"Melancia\",\n        \"tipo\": \"Fruta\",\n        \"preco\": 2.0,\n        \"fornecedor\": {\n            \"id\": \"61d71e1aac609244d8547ab0\",\n            \"nome\": \"Fazenda Chico Bento\",\n            \"email\": \"abc@ibm.com\",\n            \"telefone\": \"11975741992\",\n            \"cnpj\": \"07199027000102\",\n            \"endereco\": {\n                \"rua\": \"alameda ipe\",\n                \"numero\": \"440\",\n                \"complemento\": \"ap 184\",\n                \"cep\": \"07609350\",\n                \"bairro\": \"santa ines\",\n                \"cidade\": \"mairipora\",\n                \"uf\": \"SP\"\n            }\n        }\n    },\n        \"quantidade\":10\n    }\n    ,{\"produto\":{\n        \"id\": \"61d71eb1ac609244d8547ab1\",\n        \"nome\": \"Batata\",\n        \"tipo\": \"Legume\",\n        \"preco\": 5.0,\n        \"fornecedor\": {\n            \"id\": \"61d71e1aac609244d8547ab0\",\n            \"nome\": \"Fazenda Chico Bento\",\n            \"email\": \"abc@ibm.com\",\n            \"telefone\": \"11975741992\",\n            \"cnpj\": \"07199027000102\",\n            \"endereco\": {\n                \"rua\": \"alameda ipe\",\n                \"numero\": \"440\",\n                \"complemento\": \"ap 184\",\n                \"cep\": \"07609350\",\n                \"bairro\": \"santa ines\",\n                \"cidade\": \"mairipora\",\n                \"uf\": \"SP\"\n            }\n        }\n    },\n    \"quantidade\":20\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/pedidos/cadastro/dara@ibm.com",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"pedidos",
+						"cadastro",
+						"dara@ibm.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista Pedidos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/pedidos/listatodos",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"pedidos",
+						"listatodos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca de pedidos por cpf",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/pedidos/buscaporuser/49507369813",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"pedidos",
+						"buscaporuser",
+						"49507369813"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca por pedidos não finalizados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/pedidos/buscaabertos",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"pedidos",
+						"buscaabertos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar por id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/pedidos/delete/61c9ce895628416c21bde327",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"pedidos",
+						"delete",
+						"61c9ce895628416c21bde327"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAaWJtLmNvbSIsInJvbGVzIjpbIlVTRVIiLCJBRE1JTiJdLCJpYXQiOjE2NDE0ODYzODAsImV4cCI6MTY0MTQ4OTk4MH0.gZJsoxwXpOC5PyzjrNrobUd6I0X73UrQ0dJJAWabj7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://organicos-back-end.herokuapp.com/api/users/delete/665.968.790-46",
+					"protocol": "https",
+					"host": [
+						"organicos-back-end",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"delete",
+						"665.968.790-46"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finalizar pedido",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/pedidos/finalizar/61c9cea75628416c21bde328",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedidos",
+						"finalizar",
+						"61c9cea75628416c21bde328"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "https://localhost:8080"
+		},
+		{
+			"key": "heroku",
+			"value": "https://organicos-back-end.herokuapp.com"
+		}
+	]
+}
