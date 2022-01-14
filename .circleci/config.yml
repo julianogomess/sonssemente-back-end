@@ -1,0 +1,25 @@
+
+version: 2.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/openjdk:11.0
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: mvn -B -DskipTests clean package
+          environment:
+            DATABASE_URL: mongodb+srv://admin:root@cluster0.3fqiw.mongodb.net/sonssemente
+
+      - run:
+          name: Test
+          command: mvn test
+          environment:
+            DATABASE_URL: mongodb+srv://admin:root@cluster0.3fqiw.mongodb.net/sonssemente
+
+workflows:
+  sample:
+    jobs:
+      - build-and-test
