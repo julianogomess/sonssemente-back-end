@@ -1,6 +1,8 @@
 URL Swagger: https://organicos-back-end.herokuapp.com/swagger-ui.html#
 # REST API para gerenciamento de Clientes, Fornecedores, Produtos e Pedidos do Sons da Semente
 
+[![CircleCI](https://circleci.com/gh/julianogomess/sonssemente-back-end/tree/main.svg?style=svg)](https://circleci.com/gh/julianogomess/sonssemente-back-end/tree/main)
+
 # Tecnologias
 - JAVA
 - Spring Boot
