@@ -114,8 +114,7 @@ class UserControllerTest {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/users/delete/"+user.getCpf())
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
-        String resultString = result.getResponse().getContentAsString();
-        Assertions.assertTrue(resultString.contains("Cliente Deletado!"));
+
     }
 
     @Test

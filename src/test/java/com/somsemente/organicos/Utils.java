@@ -5,6 +5,7 @@ import com.somsemente.organicos.model.utils.Tipo;
 import org.springframework.security.core.parameters.P;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Utils {
@@ -74,5 +75,15 @@ public class Utils {
         lista.add(new ItemPedido(p1,5.0));
         lista.add(new ItemPedido(p2,5.0));
         return lista;
+    }
+
+    public Pagamento pagamento(){
+        Pagamento p = new Pagamento();
+        p.setValor(550.0);
+        Date hoje = new Date();
+        Date data = new Date(hoje.getTime() + (1000 * 60 * 60 * 24));
+        p.setDataVenc(data);
+        p.setVeiculo("Credito");
+        return p;
     }
 }
