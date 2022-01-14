@@ -21,12 +21,16 @@ jobs:
       # Use mvn clean and package as the standard maven build phase
       - run:
           name: Build
-          command: mvn -B -DskipTests -DDATABASE_URL=mongodb+srv://admin:root@cluster0.3fqiw.mongodb.net/sonssemente clean package 
+          command: mvn -B -DskipTests clean package 
+          environment:
+            DATABASE_URL: mongodb+srv://admin:root@cluster0.3fqiw.mongodb.net/sonssemente
 
       # Then run your tests!
       - run:
           name: Test
           command: mvn test
+          environment:
+            DATABASE_URL: mongodb+srv://admin:root@cluster0.3fqiw.mongodb.net/sonssemente
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
