@@ -18,6 +18,8 @@ jobs:
           command: mvn test
           environment:
             DATABASE_URL: mongodb+srv://admin:root@cluster0.3fqiw.mongodb.net/sonssemente
+      - store_artifacts:
+          path: target
 
 workflows:
   sample:
