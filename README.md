@@ -13,6 +13,7 @@ URL API: https://organicos-back-end.herokuapp.com
 - Spring Boot
 - REST
 - MongoDB
+- Docker
 - JWT Security
 - Swagger
 - Circle CI

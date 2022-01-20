@@ -6,6 +6,7 @@ import com.somsemente.organicos.dto.FornecedorDTO;
 import com.somsemente.organicos.dto.UserDTO;
 import com.somsemente.organicos.model.Fornecedor;
 import com.somsemente.organicos.model.User;
+import com.somsemente.organicos.service.EmailService;
 import com.somsemente.organicos.service.impl.CustomUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,6 +38,9 @@ public class UserController {
 
     @Autowired
     CustomUserService userService;
+
+    @Autowired
+    EmailService emailService;
 
 
     @ApiOperation(value = "Login para cliente")

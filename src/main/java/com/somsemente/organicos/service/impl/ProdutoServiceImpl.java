@@ -63,4 +63,9 @@ public class ProdutoServiceImpl implements ProdutoService {
         }
         return p.get();
     }
+
+    @Override
+    public List<Produto> pesquisaPorNome(String nome) {
+        return pr.pesquisPorNome(nome);
+    }
 }

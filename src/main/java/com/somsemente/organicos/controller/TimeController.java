@@ -1,4 +1,5 @@
-package com.somsemente.organicos.config;
+package com.somsemente.organicos.controller;
+
 
 import com.somsemente.organicos.model.Produto;
 import com.somsemente.organicos.model.utils.Tipo;
@@ -12,7 +13,7 @@ import java.util.Date;
 
 @Component
 @Slf4j
-public class Rotinas {
+public class TimeController {
     @Autowired
     ProdutoService produtoService;
 
@@ -42,6 +43,4 @@ public class Rotinas {
         produtoService.deleteByNome("Vinho Tinto");
 
     }
-
-
 }
