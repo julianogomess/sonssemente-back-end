@@ -86,4 +86,11 @@ public class Utils {
         p.setVeiculo("Credito");
         return p;
     }
+    public Historico historico(){
+        Historico h = new Historico();
+        h.setPesquisa("Banana");
+        h.setRealizado(false);
+        h.setEmail("abc@ibm.com");
+        return h;
+    }
 }

@@ -60,7 +60,7 @@ public class HistoricoController {
         if (produto.isEmpty()){
             log.info("Produto não encontrado, apenas salvo o item pesquisado");
             historico = dto.transformar(null,dto.getPesquisa());
-            msg+= " Produto não encontrado, apenas o nome da pesquisa";
+            msg+= " Produto não encontrado, apenas o nome da pesquisa. ";
         }else historico=dto.transformar(produto.get(0).getTipo(), produto.get(0).getNome());
         historico = historicoService.save(historico);
         log.info("Pesquisa salva com sucesso");

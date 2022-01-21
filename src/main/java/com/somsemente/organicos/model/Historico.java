@@ -23,4 +23,5 @@ public class Historico {
     private Tipo tipo;
     private Date data;
     private boolean realizado;
+    private boolean enviado;
 }

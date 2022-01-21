@@ -9,4 +9,6 @@ public interface HistoricoService {
     Historico findById(String id);
     Historico save(Historico historico);
     void delete(Historico historico);
+
+    void sendEmailToClientes();
 }

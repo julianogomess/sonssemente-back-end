@@ -29,6 +29,7 @@ public class HistoricoDTO {
         h.setData(new Date());
         h.setTipo(tipo);
         h.setRealizado(this.realizado);
+        h.setEnviado(false);
         return h;
     }
 }

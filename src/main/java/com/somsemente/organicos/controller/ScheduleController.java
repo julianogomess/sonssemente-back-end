@@ -1,8 +1,10 @@
 package com.somsemente.organicos.controller;
 
 
+import com.somsemente.organicos.model.Historico;
 import com.somsemente.organicos.model.Produto;
 import com.somsemente.organicos.model.utils.Tipo;
+import com.somsemente.organicos.service.HistoricoService;
 import com.somsemente.organicos.service.ProdutoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,21 @@ import java.util.Date;
 
 @Component
 @Slf4j
-public class TimeController {
+public class ScheduleController {
     @Autowired
     ProdutoService produtoService;
 
+    @Autowired
+    HistoricoService historicoService;
+
+    @Scheduled(cron = "0 0 13 * * ?")
+    public void emailToClientes(){
+       log.info("Rotina para enviar email para possiveis compradores");
+       log.info(new Date().toString());
+       historicoService.sendEmailToClientes();
+       log.info("Emails enviados com sucesso");
+
+    }
     //Acontece as 8h30 na ultima terça do mês
     @Scheduled(cron = "0 30 8 ? * 3L")
     public void pedidosDeVinho() {
