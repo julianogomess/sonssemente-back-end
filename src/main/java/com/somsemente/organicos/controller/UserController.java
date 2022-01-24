@@ -21,9 +21,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -41,7 +39,6 @@ public class UserController {
 
     @Autowired
     EmailService emailService;
-
 
     @ApiOperation(value = "Login para cliente")
     @PostMapping("/login")
@@ -70,9 +67,18 @@ public class UserController {
     @ApiOperation(value = "Cadastro do cliente")
     @PostMapping("/cadastro")
     public ResponseEntity cadastro(@Valid @RequestBody UserDTO user){
-        User u = userService.save(user.trasnformar());
-        log.info("Cliente cadastrado com sucesso");
-        return ResponseEntity.status(HttpStatus.CREATED).body(u);
+        try {
+            User u = userService.save(user.trasnformar());
+            log.info("Cliente cadastrado com sucesso");
+            return ResponseEntity.status(HttpStatus.CREATED).body(u);
+        }finally {
+            log.info(new Date().toString());
+            Timer t = new Timer();
+            DelayClass task = new DelayClass();
+            t.schedule(task,30*1000);
+            log.info("Email enviado após 30s");
+            emailService.sendSimpleMessage(user.getEmail(), "Bem Vindo ao Nosso site","Qualquer duvidas nos retorne ou acesse a sessão de duvidas na aplicação");
+        }
     }
 
     @ApiOperation(value = "Retorna todos os clientes")

@@ -1,7 +1,6 @@
 package com.somsemente.organicos.controller;
 
 
-import com.somsemente.organicos.model.Historico;
 import com.somsemente.organicos.model.Produto;
 import com.somsemente.organicos.model.utils.Tipo;
 import com.somsemente.organicos.service.HistoricoService;
@@ -22,6 +21,7 @@ public class ScheduleController {
     @Autowired
     HistoricoService historicoService;
 
+    //Acontece dia as 13h
     @Scheduled(cron = "0 0 13 * * ?")
     public void emailToClientes(){
        log.info("Rotina para enviar email para possiveis compradores");

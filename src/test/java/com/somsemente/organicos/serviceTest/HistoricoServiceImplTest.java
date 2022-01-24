@@ -1,26 +1,17 @@
 package com.somsemente.organicos.serviceTest;
 
 import com.somsemente.organicos.Utils;
-import com.somsemente.organicos.controller.ScheduleController;
 import com.somsemente.organicos.model.Historico;
-import com.somsemente.organicos.model.utils.HistHelper;
-import com.somsemente.organicos.repository.HistoricoRepository;
-import com.somsemente.organicos.service.EmailService;
 import com.somsemente.organicos.service.HistoricoService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class HistoricoServiceImplTest {
-
-    @Autowired
-    HistoricoRepository repository;
 
     @Autowired
     HistoricoService service;
@@ -62,5 +53,10 @@ public class HistoricoServiceImplTest {
         Assertions.assertEquals(teste.getPesquisa(),h.getPesquisa());
         service.delete(teste);
         Assertions.assertNull(service.findById(h.getId()));
+    }
+
+    @Test
+    void sendEmailToClientes() {
+        service.sendEmailToClientes();
     }
 }

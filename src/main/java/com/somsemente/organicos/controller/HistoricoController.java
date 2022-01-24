@@ -67,7 +67,7 @@ public class HistoricoController {
         msg+= "  Pesquisa salva com sucesso!";
         model.put("message",msg);
         model.put("object",historico);
-        return ResponseEntity.status(HttpStatus.OK).body(model);
+        return ResponseEntity.status(HttpStatus.CREATED).body(model);
     }
 
     @ApiOperation(value = "Deletar por id cada pesquisa")
