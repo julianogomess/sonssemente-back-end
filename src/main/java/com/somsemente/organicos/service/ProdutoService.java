@@ -13,4 +13,5 @@ public interface ProdutoService {
     void deleteByNome(String nome);
     Produto findByNome(String nome);
     Produto findById(String id);
+    List<Produto> pesquisaPorNome(String nome);
 }

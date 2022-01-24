@@ -1,5 +1,6 @@
 package com.somsemente.organicos;
 
+import com.somsemente.organicos.dto.HistoricoDTO;
 import com.somsemente.organicos.model.*;
 import com.somsemente.organicos.model.utils.Tipo;
 import org.springframework.security.core.parameters.P;
@@ -85,5 +86,19 @@ public class Utils {
         p.setDataVenc(data);
         p.setVeiculo("Credito");
         return p;
+    }
+    public Historico historico(){
+        Historico h = new Historico();
+        h.setPesquisa("Banana");
+        h.setRealizado(false);
+        h.setEmail("abc@ibm.com");
+        return h;
+    }
+    public HistoricoDTO historicoDTO(){
+        HistoricoDTO h = new HistoricoDTO();
+        h.setPesquisa("Banana");
+        h.setRealizado(false);
+        h.setEmail("abc@ibm.com");
+        return h;
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -38,6 +40,7 @@ public class ConfigSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/api/users/cadastro").permitAll()
                 .antMatchers("/api/users/login").permitAll()
                 .antMatchers("/api/pagamentos/**").permitAll()
+                .antMatchers("/api/pesquisas/**").permitAll()
                 .antMatchers("/api/fornecedores/**").hasAuthority("ADMIN").anyRequest().authenticated().and().csrf()
                 .disable().exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint()).and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
