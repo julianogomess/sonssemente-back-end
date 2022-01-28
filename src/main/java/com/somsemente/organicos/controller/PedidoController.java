@@ -4,6 +4,7 @@ package com.somsemente.organicos.controller;
 import com.somsemente.organicos.model.ItemPedido;
 import com.somsemente.organicos.model.Pedido;
 import com.somsemente.organicos.model.User;
+import com.somsemente.organicos.model.utils.StatusPedido;
 import com.somsemente.organicos.service.PedidoService;
 import com.somsemente.organicos.service.impl.CustomUserService;
 import io.swagger.annotations.Api;
@@ -74,18 +75,22 @@ public class PedidoController {
 
     @ApiOperation(value = "Cadastra um novo pedido na base de dados")
     @PostMapping(value = "/cadastro/{email}")
-    public ResponseEntity cadastroPedido(@RequestBody List<ItemPedido> items, @PathVariable String email){
+    public ResponseEntity cadastroPedido(@RequestBody List<ItemPedido> items, @PathVariable String email) {
         Map<Object, Object> model = new HashMap<>();
         log.info("Cadastro de pedido iniciado, busca do usuário por email");
         User user = userService.findByEmail(email);
-        if(user==null){
+        if (user == null) {
             log.info("Email invalido, usuário não encontrado!");
-            model.put("message","Email invalido, usuário não encontrado!");
+            model.put("message", "Email invalido, usuário não encontrado!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
         }
-        Pedido pedido = pedidoService.save(items,user);
+        Pedido pedido = pedidoService.save(items, user);
         log.info("Pedido cadastrado com sucesso");
-        return ResponseEntity.status(HttpStatus.CREATED).body(pedido);
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(pedido);
+        }finally {
+            pedidoService.mailCadastro(pedido);
+        }
     }
 
     @ApiOperation(value = "Deletar pedido por id")
@@ -105,9 +110,10 @@ public class PedidoController {
         return ResponseEntity.status(HttpStatus.OK).body(model);
     }
 
-    @ApiOperation(value = "Atualiza o estado do pedido")
-    @PutMapping(value = "/finalizar/{id}")
-    public ResponseEntity finalizarPedido(@PathVariable String id){
+
+    @ApiOperation(value = "Atualiza o status do pedido")
+    @PutMapping(value = "/status/{id}/{status}")
+    public ResponseEntity separarPedido(@PathVariable("id") String id, @PathVariable("status") StatusPedido statusPedido){
         Map<Object, Object> model = new HashMap<>();
         log.info("Busca por id do pedido");
         Pedido pedido = pedidoService.findById(id);
@@ -116,7 +122,7 @@ public class PedidoController {
             model.put("message","Pedido não encontrado");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
         }
-        pedido = pedidoService.updateStatus(pedido);
+        pedido = pedidoService.updateStatus(pedido, statusPedido);
         log.info("Pedido atualizado");
         model.put("message","Pedido atualizado com sucesso");
         model.put("object",pedido);
@@ -139,6 +145,11 @@ public class PedidoController {
         log.info("Pedido atualizado com com sucesso");
         model.put("message","Pedido atualizado com sucesso");
         model.put("object",pedido);
-        return ResponseEntity.status(HttpStatus.OK).body(model);
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(model);
+        }finally {
+            pedidoService.mailStatus(pedido);
+            log.info("email enviado com status do pedido");
+        }
     }
 }

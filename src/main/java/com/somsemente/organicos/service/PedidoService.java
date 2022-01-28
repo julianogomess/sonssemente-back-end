@@ -3,6 +3,7 @@ package com.somsemente.organicos.service;
 import com.somsemente.organicos.model.ItemPedido;
 import com.somsemente.organicos.model.Pedido;
 import com.somsemente.organicos.model.User;
+import com.somsemente.organicos.model.utils.StatusPedido;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface PedidoService {
     List<Pedido> findAll();
     List<Pedido> findNaoFinalizado();
     Pedido save(List<ItemPedido> items, User user);
-    Pedido updateStatus(Pedido pedido);
+    Pedido updateStatus(Pedido pedido, StatusPedido status);
     Pedido updatePedido(Pedido pedido);
+    void mailStatus(Pedido pedido);
+    void mailCadastro(Pedido pedido);
 }

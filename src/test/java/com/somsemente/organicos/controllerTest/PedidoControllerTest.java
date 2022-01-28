@@ -119,23 +119,6 @@ class PedidoControllerTest {
         produtoService.deleteById(p2.getId());
     }
 
-    @Test
-    void finalizarPedido() throws Exception {
-        User user = userService.save(u.user());
-        Fornecedor fornecedor = fornecedorService.save(u.fornecedor());
-        Produto p1 = produtoService.save(u.produto(),fornecedor.getCnpj());
-        Produto p2 = produtoService.save(u.produto2(),fornecedor.getCnpj());
-        List<ItemPedido> lista = u.lista(p1,p2);
-        Pedido p = pedidoService.save(lista,user);
-        String token = jwtTokenProvider.createToken("abc@ibm.com",ur.findByEmail("abc@ibm.com").getRoles());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/api/pedidos/finalizar/"+p.getId())
-                .header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andReturn();
-        fornecedorService.deleteByCnpj(fornecedor.getCnpj());
-        userService.deleteByCpf(user.getCpf());
-        produtoService.deleteById(p1.getId());
-        produtoService.deleteById(p2.getId());
-        pedidoService.delete(p);
-    }
 
     @Test
     void atualizarPedido() throws Exception {
@@ -158,4 +141,5 @@ class PedidoControllerTest {
         produtoService.deleteById(p2.getId());
         pedidoService.delete(p);
     }
+
 }

@@ -78,6 +78,7 @@ public class UserController {
             t.schedule(task,30*1000);
             log.info("Email enviado após 30s");
             emailService.sendSimpleMessage(user.getEmail(), "Bem Vindo ao Nosso site","Qualquer duvidas nos retorne ou acesse a sessão de duvidas na aplicação");
+
         }
     }
 
