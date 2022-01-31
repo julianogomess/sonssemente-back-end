@@ -1,10 +1,11 @@
 package com.somsemente.organicos.service.impl;
 
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.somsemente.organicos.model.ItemPedido;
 import com.somsemente.organicos.model.Pedido;
 import com.somsemente.organicos.model.User;
+import com.somsemente.organicos.model.utils.StatusPedido;
 import com.somsemente.organicos.repository.PedidoRepository;
+import com.somsemente.organicos.service.EmailService;
 import com.somsemente.organicos.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Autowired
     CustomUserService userService;
+
+    @Autowired
+    EmailService emailService;
 
     @Override
     public boolean delete(Pedido pedido) {
@@ -62,19 +66,46 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setData(new Date());
         pedido.setFinalizado(false);
         pedido.setValor(calcValor(items));
+        pedido.setStatus(StatusPedido.Realizado);
         pedido = repository.save(pedido);
         return pedido;
     }
 
+
     @Override
-    public Pedido updateStatus(Pedido pedido) {
-        pedido.setFinalizado(true);
+    public Pedido updateStatus(Pedido pedido, StatusPedido status){
+        pedido.setStatus(status);
+        if (status.equals(StatusPedido.Entregue)){
+            pedido.setFinalizado(true);
+        }
         return repository.save(pedido);
     }
+
 
     @Override
     public Pedido updatePedido(Pedido pedido) {
         return repository.save(pedido);
+    }
+
+    @Override
+    public void mailStatus(Pedido pedido) {
+        String assunto = "O status do seu pedido foi atualizado!";
+        String texto = "O status do pedido com id: " + pedido.getId() + " mudou para " + pedido.getStatus();
+        if (pedido.getStatus().equals(StatusPedido.Separado)) {
+            texto += "Dessa forma os produtos já estão conosco e na espera da entrega. \n Os itens: "+ formListItems(pedido)+ ". No valor de: " + pedido.getValor();
+        }else if(pedido.getStatus().equals(StatusPedido.Entregue)) {
+            texto += "Seu pedido foi entregue!!. \n Os itens: "+ formListItems(pedido)+ ". No valor de: " + pedido.getValor();
+        }
+        emailService.sendSimpleMessage(pedido.getCliente().getEmail(),assunto,texto);
+
+    }
+
+    @Override
+    public void mailCadastro(Pedido pedido) {
+        String assunto = "Pedido realizado com sucesso!";
+        String texto = "O id do pedido é: " + pedido.getId() + " . \n E consta com esses produtos: " + formListItems(pedido);
+        texto+= "\n Manteremos você informado das mudanças realizadas no pedido";
+        emailService.sendSimpleMessage(pedido.getCliente().getEmail(),assunto,texto);
     }
 
     private Double calcValor(List<ItemPedido> items){
@@ -87,5 +118,18 @@ public class PedidoServiceImpl implements PedidoService {
         }catch (NullPointerException exception){
             throw new NullPointerException("Variavel mal escrita");
         }
+    }
+
+    private String formListItems(Pedido p){
+        List<ItemPedido> lista = p.getLista();
+        String msg = "[";
+        for (ItemPedido i : lista){
+            if (lista.lastIndexOf(i)== lista.size()-1){
+                msg += i.getProduto().getNome()+ " - Quantidade: " + i.getQuantidade() + " ] ";
+                break;
+            }
+            msg+= i.getProduto().getNome() + " - Quantidade: " + i.getQuantidade() + ", ";
+        }
+        return msg;
     }
 }

@@ -111,25 +111,6 @@ class PedidoServiceImplTest {
         pedidoService.delete(p);
     }
 
-    @Test
-    void updateStatus() {
-        User user = userService.save(u.user());
-        Assertions.assertTrue(pedidoService.findByUser(user.getCpf()).isEmpty());
-        Fornecedor fornecedor = fornecedorService.save(u.fornecedor());
-        Produto p1 = produtoService.save(u.produto(),fornecedor.getCnpj());
-        Produto p2 = produtoService.save(u.produto2(),fornecedor.getCnpj());
-        List<ItemPedido> lista = u.lista(p1,p2);
-        Pedido p = pedidoService.save(lista,user);
-        Assertions.assertFalse(pedidoService.findById(p.getId()).isFinalizado());
-        pedidoService.updateStatus(p);
-        Assertions.assertTrue(pedidoService.findById(p.getId()).isFinalizado());
-        fornecedorService.deleteByCnpj(fornecedor.getCnpj());
-        userService.deleteByCpf(user.getCpf());
-        produtoService.deleteById(p1.getId());
-        produtoService.deleteById(p2.getId());
-        pedidoService.delete(p);
-
-    }
 
     @Test
     void updatePedido() {

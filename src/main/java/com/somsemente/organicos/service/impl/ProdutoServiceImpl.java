@@ -68,4 +68,9 @@ public class ProdutoServiceImpl implements ProdutoService {
     public List<Produto> pesquisaPorNome(String nome) {
         return pr.pesquisPorNome(nome);
     }
+
+    @Override
+    public List<Produto> getHome() {
+        return pr.getHome();
+    }
 }

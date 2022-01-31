@@ -1,5 +1,6 @@
 package com.somsemente.organicos.model;
 
+import com.somsemente.organicos.model.utils.StatusPedido;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,4 +25,5 @@ public class Pedido {
     private Date data;
     private boolean finalizado;
     private Double valor;
+    private StatusPedido status;
 }

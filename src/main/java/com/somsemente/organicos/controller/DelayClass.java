@@ -17,6 +17,8 @@ public class DelayClass extends TimerTask {
     @Override
     public void run() {
         log.info(new Date().toString());
+        log.info("Rotina programada");
+
     }
 
 }
