@@ -14,4 +14,5 @@ public interface ProdutoService {
     Produto findByNome(String nome);
     Produto findById(String id);
     List<Produto> pesquisaPorNome(String nome);
+    List<Produto> getHome();
 }

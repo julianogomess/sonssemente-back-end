@@ -88,5 +88,20 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.OK).body(model);
     }
 
+    @ApiOperation(value = "Retorna produtos para a home")
+    @GetMapping(value = "/home")
+    public ResponseEntity<Object> getHome(){
+        Map<Object, Object> model = new HashMap<>();
+        log.info("Busca por produtos aleatorios para home");
+        List<Produto> produtos =  produtoService.getHome();
+        if(produtos.isEmpty()){
+            log.info("Nenhum produto encontrado");
+            model.put("message","Nenhum produto encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
+        }
+        log.info("Produtos para a home");
+        return ResponseEntity.status(HttpStatus.OK).body(produtos);
+    }
+
 
 }
