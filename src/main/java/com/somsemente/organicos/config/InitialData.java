@@ -86,6 +86,7 @@ public class InitialData implements ApplicationListener<ContextRefreshedEvent> {
             p1.setPreco(1.0);
             p1.setTipo(Tipo.Verdura);
             p1.setNome("Alface Blue");
+            p1.setEstoque(25.0);
             produtoService.save(p1,cnpj);
         }
         Produto p2 = produtoService.findByNome("Repolho Blue");
@@ -94,6 +95,7 @@ public class InitialData implements ApplicationListener<ContextRefreshedEvent> {
             p2.setPreco(1.0);
             p2.setTipo(Tipo.Verdura);
             p2.setNome("Repolho Blue");
+            p2.setEstoque(25.0);
             produtoService.save(p2,cnpj);
         }
         Produto p3 = produtoService.findByNome("Repolho Red");
@@ -102,6 +104,7 @@ public class InitialData implements ApplicationListener<ContextRefreshedEvent> {
             p3.setPreco(1.0);
             p3.setTipo(Tipo.Verdura);
             p3.setNome("Repolho Red");
+            p3.setEstoque(25.0);
             produtoService.save(p3,cnpj);
         }
 

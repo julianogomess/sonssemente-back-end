@@ -22,5 +22,6 @@ public class Produto {
     private Double preco;
     @DBRef
     private Fornecedor fornecedor;
+    private Double estoque;
 
 }

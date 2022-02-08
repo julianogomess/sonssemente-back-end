@@ -103,5 +103,29 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.OK).body(produtos);
     }
 
+    @ApiOperation(value = "Atualizar estoque do produto")
+    @PutMapping(value = "/estoque/{id}/{valor}")
+    public ResponseEntity<Object> atualizarEstoque(@PathVariable("id") String id, @PathVariable("valor") Double valor){
+        Map<Object, Object> model = new HashMap<>();
+        log.info("Atualizando estoque do produto de id: " + id);
+        Produto p = produtoService.findById(id);
+        if (p==null){
+            log.info("Produto não encontrado");
+            model.put("message","Produto não encontrado, id informado incorreto");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(model);
+        }
+        p = produtoService.atualizarEstoque(p,valor);
+        log.info("Estoque do produto atualizado com sucesso");
+        model.put("message","Estoque atualizado com sucesso");
+        model.put("object",p);
+        return ResponseEntity.status(HttpStatus.OK).body(model);
+    }
 
+    @ApiOperation(value = "Lista de produtos separado por categoria")
+    @GetMapping(value = "/listapaginada")
+    public ResponseEntity<Object> getListaPaginada(){
+        Map<Object, Object> model = produtoService.listaPaginada();
+        log.info("Busca da lista paginada");
+        return ResponseEntity.status(HttpStatus.OK).body(model);
+    }
 }

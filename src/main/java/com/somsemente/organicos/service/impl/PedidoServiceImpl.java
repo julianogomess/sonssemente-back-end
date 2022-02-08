@@ -1,15 +1,19 @@
 package com.somsemente.organicos.service.impl;
 
+import com.somsemente.organicos.dto.ItemPedidoDTO;
 import com.somsemente.organicos.model.ItemPedido;
 import com.somsemente.organicos.model.Pedido;
+import com.somsemente.organicos.model.Produto;
 import com.somsemente.organicos.model.User;
 import com.somsemente.organicos.model.utils.StatusPedido;
 import com.somsemente.organicos.repository.PedidoRepository;
 import com.somsemente.organicos.service.EmailService;
 import com.somsemente.organicos.service.PedidoService;
+import com.somsemente.organicos.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +28,9 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    ProdutoService produtoService;
 
     @Override
     public boolean delete(Pedido pedido) {
@@ -108,6 +115,47 @@ public class PedidoServiceImpl implements PedidoService {
         emailService.sendSimpleMessage(pedido.getCliente().getEmail(),assunto,texto);
     }
 
+    @Override
+    public void mailVendas() {
+        String assunto = "Pedidos realizados no dia de Hoje";
+        Date depois = new Date();
+        Long tempo = depois.getTime();
+        Date antes = new Date();
+        antes.setTime(tempo-24*60*60*1000);
+        List<Pedido> lista = repository.getPedidoDeHoje(antes);
+        String texto = "Foram realizado hoje: " + lista.size()+" pedidos, totalizando um valor de " + calValorDiario(lista)+" reais";
+        emailService.sendSimpleMessage("sonssementeteste@gmail.com",assunto,texto);
+    }
+
+    @Override
+    public List<ItemPedido> transformarDTO(List<ItemPedidoDTO> lista) {
+        List<ItemPedido> items = new ArrayList<>();
+        for (ItemPedidoDTO i:lista){
+            Produto p = produtoService.findById(i.getId());
+            ItemPedido item = new ItemPedido();
+            item.setProduto(p);
+            item.setQuantidade(i.getQuantidade());
+            items.add(item);
+        }
+        return items;
+    }
+
+    @Override
+    public void atualizarEstoque(List<ItemPedido> items) {
+        Produto p ;
+        for (ItemPedido i: items){
+            p = i.getProduto();
+            produtoService.atualizarEstoque(p,i.getQuantidade());
+        }
+    }
+
+    private double calValorDiario(List<Pedido> lista){
+        double soma = 0;
+        for (Pedido p: lista){
+            soma+=p.getValor();
+        }
+        return soma;
+    }
     private Double calcValor(List<ItemPedido> items){
         try {
             Double soma = 0.0;
@@ -132,4 +180,5 @@ public class PedidoServiceImpl implements PedidoService {
         }
         return msg;
     }
+
 }

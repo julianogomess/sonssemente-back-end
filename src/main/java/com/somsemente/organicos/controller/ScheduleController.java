@@ -30,6 +30,11 @@ public class ScheduleController {
        log.info("Emails enviados com sucesso");
 
     }
+    //TOD O DIA AS 18
+    @Scheduled(cron = "0 0 18 * * ?")
+    public void mailVendas(){
+        log.info("Email com as vendas diárias");
+    }
     //Acontece as 8h30 na ultima terça do mês
     @Scheduled(cron = "0 30 8 ? * 3L")
     public void pedidosDeVinho() {

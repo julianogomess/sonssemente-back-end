@@ -20,12 +20,15 @@ public class ProdutoDTO {
     private Tipo tipo;
     @PositiveOrZero
     private Double preco;
+    @NotNull(message = "Campo estoque é obrigatório")
+    private Double estoque;
 
     public Produto trasnformar(){
         Produto p = new Produto();
         p.setNome(this.getNome());
         p.setTipo(this.getTipo());
         p.setPreco(this.getPreco());
+        p.setEstoque(this.getEstoque());
         return p;
     }
 }

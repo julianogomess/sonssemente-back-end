@@ -26,7 +26,10 @@ class PedidoServiceImplTest {
     FornecedorService fornecedorService;
 
     Utils u = new Utils();
-
+    @Test
+    void test(){
+        pedidoService.mailVendas();
+    }
     @Test
     void delete() {
         User user = userService.save(u.user());

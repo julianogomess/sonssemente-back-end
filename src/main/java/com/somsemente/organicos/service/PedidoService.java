@@ -1,5 +1,6 @@
 package com.somsemente.organicos.service;
 
+import com.somsemente.organicos.dto.ItemPedidoDTO;
 import com.somsemente.organicos.model.ItemPedido;
 import com.somsemente.organicos.model.Pedido;
 import com.somsemente.organicos.model.User;
@@ -18,4 +19,7 @@ public interface PedidoService {
     Pedido updatePedido(Pedido pedido);
     void mailStatus(Pedido pedido);
     void mailCadastro(Pedido pedido);
+    void mailVendas();
+    List<ItemPedido> transformarDTO(List<ItemPedidoDTO> lista);
+    void atualizarEstoque(List<ItemPedido> items);
 }

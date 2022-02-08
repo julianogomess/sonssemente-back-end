@@ -53,7 +53,7 @@ public class Utils {
         User u = new User();
         u.setNome("Livia");
         u.setCpf("60777916010");
-        u.setEmail("juhgomes_sousa@hotmail.com");
+        u.setEmail("qwe123@gmail.com");
         u.setDataNasc("23-12-1998");
         u.setPassword("123455");
         u.setTelefone("1199901221");

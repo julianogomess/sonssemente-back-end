@@ -9,8 +9,7 @@ import com.somsemente.organicos.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProdutoServiceImpl implements ProdutoService {
@@ -72,5 +71,36 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public List<Produto> getHome() {
         return pr.getHome();
+    }
+
+    @Override
+    public Produto atualizarEstoque(Produto p, Double valor) {
+        p.setEstoque(valor);
+        return pr.save(p);
+    }
+
+    @Override
+    public Map<Object, Object> listaPaginada() {
+        List<Produto> listaVerdura = pickFive(findByTipo(Tipo.Verdura));
+        List<Produto> listaFruta = pickFive(findByTipo(Tipo.Fruta));
+        List<Produto> listaLegume = pickFive(findByTipo(Tipo.Legume));
+        Map<Object, Object> map = new HashMap<>();
+        map.put("Verdura",listaVerdura);
+        map.put("Fruta",listaFruta);
+        map.put("Legume",listaLegume);
+        return map;
+    }
+
+    private List<Produto> pickFive(List<Produto> lista){
+        List<Produto> result = new ArrayList<>();
+        Collections.shuffle(lista);
+        int max = 5;
+        if (lista.size()<5){
+            max=lista.size();
+        }
+        for (int i=0;i<max;i++){
+            result.add(lista.get(i));
+        }
+        return result;
     }
 }
